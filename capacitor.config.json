@@ -1,0 +1,22 @@
+{
+  "appId": "com.torquemedic.app",
+  "appName": "TorqueMedic",
+  "webDir": "dist",
+  "webviewPath": "index.html",
+  "android": {
+    "allowMixedContent": false,
+    "backgroundColor": "#0b0f14"
+  },
+  "ios": {
+    "contentInset": "always",
+    "backgroundColor": "#0b0f14",
+    "limitsNavigationsToAppBoundDomains": false
+  },
+  "plugins": {
+    "SplashScreen": {
+      "backgroundColor": "#0b0f14",
+      "showSpinner": false,
+      "launchAutoHide": true
+    }
+  }
+}
