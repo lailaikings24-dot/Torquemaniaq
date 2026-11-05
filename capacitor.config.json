@@ -17,6 +17,19 @@
       "backgroundColor": "#0b0f14",
       "showSpinner": false,
       "launchAutoHide": true
+    }{
+  "appId": "com.yourcompany.torquemedic",
+  "appName": "TorqueMedic",
+  "webDir": "dist",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 3000,
+      "launchAutoHide": true,
+      "backgroundColor": "#0f172a",
+      "androidScaleType": "CENTER_CROP"
     }
+  }
+}
+
   }
 }
