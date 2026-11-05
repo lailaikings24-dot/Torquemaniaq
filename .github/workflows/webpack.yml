@@ -22,7 +22,13 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Build
-      run: |
-        npm install
-        npx webpack
+    - name: Build npm install @capacitor/core @capacitor/cli
+npx cap init TorqueMedic com.yourcompany.torquemedic --web-dir=
+
+    run: |
+        npm install  install @capacitor/android @capacitor/ios
+npx cap add android
+npx cap add ios
+npm install @capacitor-community/bluetooth-le
+npx cap sync
+        npx webpack 
