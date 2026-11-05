@@ -4,8 +4,7 @@
   BLUETOOTH_SCAN/CONNECT cover Android 12+. ACCESS_FINE_LOCATION is only needed
   for discovery on Android 11 and older, hence maxSdkVersion. declare "neverForLocation"
   so Play does not treat the app as a location tracker.
--->xml
-<!-- Declare Bluetooth permissions -->
+--> xml
 <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />
 <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />
 
