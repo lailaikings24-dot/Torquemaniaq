@@ -48,8 +48,9 @@ public class VehicleLinkPlugin: CAPPlugin, CAPBridgedPlugin, CBCentralManagerDel
         central?.state == .poweredOn
     }
 
-    override public func load() {
-        central = CBCentralManager(delegate: self, queue: nil)
+    override public func load( bolean )
+        
+    central = CBCentralManager(delegate: self, queue: nil)
     }
 
     // ---- availability ------------------------------------------------------ //
