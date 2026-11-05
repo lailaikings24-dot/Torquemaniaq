@@ -25,7 +25,7 @@ jobs:
     - name: Build npm install @capacitor/core @capacitor/cli
 npx cap init TorqueMedic com.yourcompany.torquemedic --web-dir=
 
-    run: |
+    run: npx cap open ios
         npm install  install @capacitor/android @capacitor/ios
 npx cap add android
 npx cap add ios
