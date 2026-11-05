@@ -29,3 +29,32 @@
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
+// Add this import statement at the top of your dashboard.js file
+import { DTCDictionary } from './dtcDictionary.js';
+
+// Update your existing render function to use the code library mapping
+function renderTroubleCodes(codesArray) {
+  dtcContainer.innerHTML = ''; // Clear processing placeholders
+
+  if (codesArray.length === 0) {
+    dtcContainer.innerHTML = '<div class="no-faults">🎉 System Clear! No Engine Error Codes detected.</div>';
+    return;
+  }
+
+  codesArray.forEach(code => {
+    // Query our lookup module to find what this code stands for
+    const clearDefinition = DTCDictionary.getDefinition(code);
+
+    const item = document.createElement('div');
+    item.className = 'dtc-item';
+    
+    // Updated HTML template layout handling both raw token string and descriptive text block
+    item.innerHTML = `
+      <div style="display: flex; flex-direction: column; gap: 4px; text-align: left;">
+        <span class="dtc-code" style="color: var(--accent-red);">${code}</span>
+        <span style="color: var(--text-main); font-size: 0.9rem; font-weight: 500;">${clearDefinition}</span>
+      </div>
+    `;
+    dtcContainer.appendChild(item);
+  });
+}
