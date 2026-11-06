@@ -44,7 +44,7 @@ npx cap add ios          # macOS only
 `capacitor.config.json` already points at `dist`, so build the web app first:
 
 ```bash
-npm run build
+npm run build 
 npx cap sync
 ```
 
