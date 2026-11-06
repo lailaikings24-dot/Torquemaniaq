@@ -17,7 +17,7 @@ const SHELL = [
   '/icons/icon-512.png',
   '/icons/maskable-512.png',
   '/icons/apple-touch-icon.png',
-];
+]; 
 
 /** Wait no longer than this for the network before showing the cached app. */
 const NAV_TIMEOUT = 3500;
