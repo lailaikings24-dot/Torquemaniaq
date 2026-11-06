@@ -92,7 +92,7 @@ service is used, so no foreground-service permission is needed.
 5. Run on a physical iPhone — the simulator has no Bluetooth radio.
 
 ```bash
-npx cap run ios
+npx cap run ios 
 ```
 
 Bluetooth Classic / SPP dongles cannot be supported on iOS: Apple requires MFi
