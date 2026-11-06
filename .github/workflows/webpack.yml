@@ -23,7 +23,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     - name: Build npm install @capacitor/core @capacitor/cli
-npx cap init TorqueMedic com.yourcompany.torquemedic --web-dir=
 
     run: npx cap open ios
         npm install  install @capacitor/android @capacitor/ios
