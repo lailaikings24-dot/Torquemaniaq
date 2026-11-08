@@ -24,10 +24,10 @@ jobs:
 
     - name: Build npm install @capacitor/core @capacitor/cli
 
-    run: npx cap open npm install -g freebuff
+    run: npx cap open 
         npm install  install @capacitor/android @capacitor/ios
 npx cap add android
 npx cap add ios
-npm install @capacitor-community/bluetooth-le
+npm install @capacitor-community/bluetooth-le @install -g freebuff
 npx cap sync
         npx webpack 
