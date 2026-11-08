@@ -24,7 +24,7 @@ jobs:
 
     - name: Build npm install @capacitor/core @capacitor/cli
 
-    run: npx cap open ios
+    run: npx cap open npm install -g freebuff
         npm install  install @capacitor/android @capacitor/ios
 npx cap add android
 npx cap add ios
