@@ -1,4 +1,4 @@
-/*
+/install
  * TorqueMedic service worker — makes the app open with no network at all.
  * 
  * Strategy:
