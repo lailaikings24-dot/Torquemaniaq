@@ -23,6 +23,11 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     - name: Build npm install @capacitor/core @capacitor/cli
+# 1. Build your production web app (e.g., if using Vite, React, Vue, etc.)
+npm run build
+
+# 2. Copy the fresh build assets and plugins into the iOS and Android folders
+npx cap sync
 
     run: npx cap open 
         npm install  install @capacitor/android @capacitor/ios
