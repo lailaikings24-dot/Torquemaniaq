@@ -3,11 +3,11 @@
   "appName": "TorqueMedic",
   "webDir": "dist",
   "webviewPath": "index.html",
-  "android": {native/android/VehicleLinkPlugin.kt
+  "android": {
     "allowMixedContent": true,
     "backgroundColor": "#0b0f14"
   },
-  "ios": {native/ios/VehicleLinkPlugin.swift
+  "ios": {
     "contentInset": "always",
     "backgroundColor": "#0b0f14",
     "limitsNavigationsToAppBoundDomains": true
