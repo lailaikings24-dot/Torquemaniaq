@@ -4,13 +4,13 @@
   "webDir": "dist",
   "webviewPath": "index.html",
   "android": {
-    "allowMixedContent": false,
+    "allowMixedContent": true,
     "backgroundColor": "#0b0f14"
   },
   "ios": {
     "contentInset": "always",
     "backgroundColor": "#0b0f14",
-    "limitsNavigationsToAppBoundDomains": false
+    "limitsNavigationsToAppBoundDomains": true
   },
   "plugins": {
     "SplashScreen": {
@@ -21,7 +21,8 @@
   "appId": "com.yourcompany.torquemedic",
   "appName": "TorqueMedic",
   "webDir": "dist",
-  "plugins": {
+  "plugins": {native/android/VehicleLinkPlugin.kt
+  .
     "SplashScreen": {
       "launchShowDuration": 3000,
       "launchAutoHide": true,
