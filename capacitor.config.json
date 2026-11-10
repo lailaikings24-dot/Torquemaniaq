@@ -21,7 +21,7 @@
   "appId": "com.yourcompany.torquemedic",
   "appName": "TorqueMedic",
   "webDir": "dist",
-  "plugins": {native/android/VehicleLinkPlugin.kt
+  "plugins": {
   .
     "SplashScreen": {
       "launchShowDuration": 3000,
