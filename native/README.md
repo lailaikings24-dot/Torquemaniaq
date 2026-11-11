@@ -39,11 +39,11 @@ npm i -D @capacitor/cli
 npm i @capacitor/core @capacitor/android @capacitor/ios
 npx cap add android
 npx cap add ios          # macOS only
-```
+      ``
 
 `capacitor.config.json` already points at `dist`, so build the web app first:
 
-```bash
+   ```bah
 npm run build 
 npx cap sync
 ```
@@ -67,7 +67,7 @@ npx cap sync
            super.onCreate(savedInstanceState)
        }
    }
-   ```
+      ``
 
 3. Merge `AndroidManifest.additions.xml` into
    `android/app/src/main/AndroidManifest.xml`.
@@ -93,7 +93,7 @@ service is used, so no foreground-service permission is needed.
 
 ```bash
 npx cap run ios 
-```
+```=
 
 Bluetooth Classic / SPP dongles cannot be supported on iOS: Apple requires MFi
 certification for those. BLE adapters and Wi-Fi adapters both work.
