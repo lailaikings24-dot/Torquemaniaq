@@ -98,18 +98,18 @@ These answers describe the product, so most of this text can be final now.
 > DIY car owners and enthusiasts who service their own vehicles, plus apprentices
 > and independent mechanics who want a quick second opinion. They drive cars built
 > since OBD-II became mandatory (1996 in the US, 2001 for EU petrol, 2004 for EU
-> diesel) and typically own a low-cost ELM327 adapter. The app is Android-only and
-> requires Android 6.0 or newer.
+> diesel) and typically own a low-cost ELM327 adapter. The Play app is Android-only
+> and requires Android 6.0 or newer.
 
 ### Describe how your app provides value to users
 
 > TorqueMedic turns a cheap OBD-II adapter into a readable diagnosis. It reads and
-> clears emissions-related trouble codes, explains what each code means and what
-> commonly causes it, shows live sensor data, and lets you watch or log specific
-> PIDs. Everything runs on the phone: no account, no cloud and no ads, so the VIN
-> and driving data never leave the car and the app still works in a garage with no
-> signal. A built-in demo vehicle lets people try the whole workflow before they
-> buy an adapter.
+> clears powertrain trouble codes, explains what each code means and what commonly
+> causes it, shows live sensor data, and lets you watch or log specific PIDs.
+> Everything runs on the phone: no account, no cloud and no ads, so the VIN and
+> diagnostic data are never sent to the developer or any third party, and the app
+> still works in a garage with no signal. A built-in demo vehicle lets people try
+> the whole workflow before they buy an adapter.
 
 ### How many installs do you expect?
 

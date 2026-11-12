@@ -110,7 +110,9 @@ does not count toward the closed test.
 1. **Tools → About** — note the version; quote it in every report.
 2. **Connect → Demo vehicle** — confirm the dashboard, codes and live data load.
 3. Grant the Bluetooth prompt when connecting a real adapter. Android 12+ asks
-   for nearby devices; the app never uses location.
+   for nearby devices; Android 11 and older may also ask for location because
+   Bluetooth scanning required it there. The app does not read or store your
+   position.
 4. Try the app once with mobile data and Wi-Fi off, to confirm the installed
    version still opens.
 
