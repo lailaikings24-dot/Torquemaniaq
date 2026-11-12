@@ -54,10 +54,52 @@ A Play Store bundle needs JDK 21 and Android SDK 35:
 npm run android:bundle   # android/app/build/outputs/bundle/release/app-release.aab
 ```
 
-Signing is deliberately not configured. Create your own upload keystore, keep it
-out of git (`.jks` / `.keystore` are ignored), and reference it from a
-`signingConfigs` block in `android/app/build.gradle`. Losing that keystore means
-you cannot ship updates to the same Play listing.
+### Release signing (upload key)
+
+`android/app/build.gradle` reads signing material from
+`android/keystore.properties`, which is gitignored. With no such file the build
+still succeeds — it just produces an **unsigned** bundle — so a fresh clone and
+CI can build without secrets.
+
+**1. Create your upload keystore** (once; keep it forever, outside the repo):
+
+```bash
+keytool -genkeypair -v \
+  -keystore ~/keys/torquemedic-upload.jks \
+  -alias upload -keyalg RSA -keysize 2048 -validity 10000
+```
+
+`keytool` ships with the JDK. Use a strong password and store a backup of the
+file somewhere safe — without it you cannot ship updates to the same Play
+listing. Google also recommends enrolling in Play App Signing, where this is
+only the *upload* key and Google holds the app-signing key.
+
+**2. Point Gradle at it:**
+
+```bash
+cp android/keystore.properties.example android/keystore.properties
+# then edit storeFile / storePassword / keyAlias / keyPassword
+```
+
+`storeFile` may be absolute or relative to `android/app`. `*.jks`, `*.keystore`
+and `keystore.properties` are all ignored by git.
+
+**3. Build the signed bundle:**
+
+```bash
+npm run android:bundle
+# android/app/build/outputs/bundle/release/app-release.aab
+```
+
+**4. Check it really is signed:**
+
+```bash
+jarsigner -verify android/app/build/outputs/bundle/release/app-release.aab
+# expect: "jar verified."  (without keystore.properties: "jar is unsigned.")
+```
+
+Bump `versionCode` in `android/app/build.gradle` for every Play upload; Play
+rejects a bundle that reuses a code already on the track.
 
 ### iOS project (macOS only)
 
