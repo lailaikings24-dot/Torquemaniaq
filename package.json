@@ -10,14 +10,23 @@
     "build": "tsc --noEmit && vite build",
     "check:protocol": "esbuild scripts/protocol-check.ts --bundle --platform=node --format=esm --outfile=.check/check.mjs && node .check/check.mjs",
     "check:host": "node scripts/host-check.mjs",
+    "check:native": "node scripts/native-check.mjs",
+    "store:assets": "node scripts/store-assets.mjs",
+    "store:screenshots": "node scripts/store-screenshots.mjs",
+    "native:sync": "npm run build && npx cap sync && node scripts/native-register.mjs",
     "preview": "vite preview --host 0.0.0.0 --port 4173"
   },
   "dependencies": {
+    "@capacitor/android": "^8.6.0",
+    "@capacitor/core": "^8.6.0",
+    "@capacitor/ios": "^8.6.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "zustand": "^4.5.5"
   },
   "devDependencies": {
+    "@capacitor/assets": "^4.0.0",
+    "@capacitor/cli": "^8.6.0",
     "@types/node": "^22.9.0",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",

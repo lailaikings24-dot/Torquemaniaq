@@ -1,0 +1,108 @@
+name: iOS release
+
+# Archives and exports an App Store build, then uploads it to App Store Connect.
+# Runs on a macOS runner because Xcode only exists there. This workflow cannot be
+# exercised in the Linux workspace where the project was prepared, so treat it as
+# reviewed-but-unrun code until the first green build.
+#
+# Required repository secrets:
+#   BUILD_CERTIFICATE_BASE64     base64 of the Apple Distribution .p12
+#   P12_PASSWORD                 password for that .p12
+#   PROVISIONING_PROFILE_BASE64  base64 of the App Store provisioning profile
+#   PROFILE_NAME                 profile name exactly as in the developer portal
+#   TEAM_ID                      Apple Developer team identifier
+#   APPLE_API_KEY_ID             App Store Connect API key id
+#   APPLE_API_ISSUER_ID          App Store Connect issuer id
+#   APPLE_API_KEY_BASE64         base64 of the AuthKey_<id>.p8 file
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+
+jobs:
+  archive:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install, build and sync
+        run: |
+          npm ci
+          npm run build
+          npx cap sync ios
+          node scripts/native-register.mjs
+
+      - name: Import the distribution certificate
+        uses: apple-actions/import-codesign-certs@v3
+        with:
+          p12-file-base64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
+          p12-password: ${{ secrets.P12_PASSWORD }}
+
+      - name: Install the provisioning profile
+        env:
+          PROFILE_BASE64: ${{ secrets.PROVISIONING_PROFILE_BASE64 }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$HOME/Library/MobileDevice/Provisioning Profiles"
+          echo "$PROFILE_BASE64" | base64 -d > "$HOME/Library/MobileDevice/Provisioning Profiles/torquemedic.mobileprovision"
+
+      - name: Resolve packages, archive and export
+        env:
+          TEAM_ID: ${{ secrets.TEAM_ID }}
+          PROFILE_NAME: ${{ secrets.PROFILE_NAME }}
+        run: |
+          set -euo pipefail
+          xcodebuild -project ios/App/App.xcodeproj -scheme App \
+            -resolvePackageDependencies
+          xcodebuild -project ios/App/App.xcodeproj -scheme App \
+            -configuration Release -destination 'generic/platform=iOS' \
+            -archivePath build/TorqueMedic.xcarchive archive \
+            CODE_SIGN_STYLE=Manual \
+            DEVELOPMENT_TEAM="$TEAM_ID" \
+            CODE_SIGN_IDENTITY="Apple Distribution" \
+            PROVISIONING_PROFILE_SPECIFIER="$PROFILE_NAME"
+          cat > build/ExportOptions.plist <<PLIST
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0"><dict>
+            <key>method</key><string>app-store-connect</string>
+            <key>teamID</key><string>$TEAM_ID</string>
+            <key>signingStyle</key><string>manual</string>
+            <key>uploadSymbols</key><true/>
+            <key>provisioningProfiles</key>
+            <dict><key>com.torquemedic.app</key><string>$PROFILE_NAME</string></dict>
+          </dict></plist>
+          PLIST
+          xcodebuild -exportArchive \
+            -archivePath build/TorqueMedic.xcarchive \
+            -exportOptionsPlist build/ExportOptions.plist \
+            -exportPath build/export
+
+      - name: Upload to App Store Connect
+        env:
+          APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
+          APPLE_API_ISSUER_ID: ${{ secrets.APPLE_API_ISSUER_ID }}
+          APPLE_API_KEY_BASE64: ${{ secrets.APPLE_API_KEY_BASE64 }}
+        run: |
+          set -euo pipefail
+          mkdir -p build/private_keys
+          echo "$APPLE_API_KEY_BASE64" | base64 -d > "build/private_keys/AuthKey_$APPLE_API_KEY_ID.p8"
+          xcrun altool --upload-app --type ios \
+            --file build/export/TorqueMedic.ipa \
+            --apiKey "$APPLE_API_KEY_ID" --apiIssuer "$APPLE_API_ISSUER_ID"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: torquemedic-ios-release
+          path: build/TorqueMedic.xcarchive
+          retention-days: 30

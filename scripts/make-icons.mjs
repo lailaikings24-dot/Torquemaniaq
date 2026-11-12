@@ -126,7 +126,9 @@ function shade(x, y, opts) {
 
 function render(size, opts) {
   const rgba = Buffer.alloc(size * size * 4);
-  const samples = 3;
+  // Large canvases get one sample per pixel: 3x3 at 2732² is a minute of work
+  // for edges nobody can see on a splash screen.
+  const samples = opts.samples ?? 3;
   for (let y = 0; y < size; y++) {
     for (let x = 0; x < size; x++) {
       let r = 0;
@@ -173,4 +175,22 @@ for (const { file, size, opts } of targets) {
   const png = render(size, opts);
   writeFileSync(`${OUT}/${file}`, png);
   console.log(`${OUT}/${file}  ${size}x${size}  ${(png.length / 1024).toFixed(1)} kB`);
+}
+
+// ---- native store assets ---------------------------------------------------
+// Consumed by `npx capacitor-assets generate --android --ios`, which writes the
+// launcher icons and splash screens for both platforms from these two files.
+
+const NATIVE = 'assets';
+mkdirSync(NATIVE, { recursive: true });
+
+for (const { file, size, opts } of [
+  // Full-bleed square: iOS applies its own mask, Android adaptive icons crop.
+  { file: 'icon-only.png', size: 1024, opts: { rounded: false, contentScale: 0.94, samples: 2 } },
+  // The same gauge, small and centred, on the dark background.
+  { file: 'splash.png', size: 2732, opts: { rounded: false, contentScale: 3.4, samples: 1 } },
+]) {
+  const png = render(size, opts);
+  writeFileSync(`${NATIVE}/${file}`, png);
+  console.log(`${NATIVE}/${file}  ${size}x${size}  ${(png.length / 1024).toFixed(1)} kB`);
 }

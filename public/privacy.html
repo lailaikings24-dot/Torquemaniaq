@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TorqueMedic — Privacy Policy</title>
+    <meta name="description" content="TorqueMedic privacy policy: the app collects no personal data." />
+    <style>
+      :root { color-scheme: dark; }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        padding: 2.5rem 1.25rem 4rem;
+        background: #0c1116;
+        color: #d7e2ec;
+        font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
+      main { max-width: 44rem; margin: 0 auto; }
+      h1 { font-size: 1.9rem; line-height: 1.2; margin: 0 0 .35rem; color: #fff; letter-spacing: -.02em; }
+      .meta { margin: 0 0 2rem; color: #7d8fa1; font-size: .875rem; }
+      h2 { font-size: 1.12rem; margin: 2rem 0 .5rem; color: #fff; }
+      p, li { color: #c3d1de; }
+      ul { padding-left: 1.15rem; }
+      li { margin: .3rem 0; }
+      a { color: #5cc8ff; }
+      .lede {
+        border-left: 3px solid #5cc8ff;
+        background: #111a22;
+        padding: .9rem 1rem;
+        border-radius: 0 8px 8px 0;
+        margin: 0 0 1.5rem;
+      }
+      code { background: #16212b; padding: .1rem .35rem; border-radius: 4px; font-size: .9em; }
+      footer { margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid #1e2c38; color: #7d8fa1; font-size: .85rem; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Privacy Policy</h1>
+      <p class="meta">TorqueMedic · Effective 12 November 2026 · Applies to the Android and iOS apps and the web version</p>
+
+      <p class="lede">
+        TorqueMedic collects no personal data. There is no account, no analytics, no advertising,
+        and no server that receives your vehicle's information. Everything the app reads from your
+        car stays on your device.
+      </p>
+
+      <h2>What the app reads, and where it goes</h2>
+      <p>
+        TorqueMedic talks to an OBD-II adapter over Bluetooth or Wi-Fi. It reads diagnostic trouble
+        codes, freeze-frame data, live sensor values and the vehicle identification number (VIN),
+        and sends the commands needed to request them. Those readings are written only to local
+        storage on your phone or computer so the app can show history and repair guidance. They are
+        never uploaded, sold or shared.
+      </p>
+      <p>
+        When no adapter is connected, the app can run its built-in demo vehicle. The demo data is
+        simulated on your device and has nothing to do with a real car.
+      </p>
+
+      <h2>Permissions and what they are for</h2>
+      <ul>
+        <li>
+          <strong>Nearby devices / Bluetooth</strong> (<code>BLUETOOTH_SCAN</code>,
+          <code>BLUETOOTH_CONNECT</code> on Android; the Bluetooth usage descriptions on iOS) — used
+          only to discover and communicate with your OBD-II adapter.
+        </li>
+        <li>
+          <strong>Location</strong> (<code>ACCESS_FINE_LOCATION</code>) — requested on Android 11 and
+          older only, because the Android operating system requires it to scan for Bluetooth
+          devices. On Android 12 and newer the app requests Bluetooth permission with the
+          <code>neverForLocation</code> flag. TorqueMedic never reads your GPS position, never
+          derives location from Bluetooth scans, and never stores or transmits location data.
+        </li>
+        <li>
+          <strong>Internet</strong> — used to load the app's own interface and, if you open it, this
+          policy. No diagnostic data is sent anywhere.
+        </li>
+      </ul>
+
+      <h2>Data stored on your device</h2>
+      <p>
+        Saved vehicles, scan results and app preferences are kept in your browser or WebView's local
+        storage. You can erase all of it at any time by clearing the app's data in your device
+        settings or by uninstalling the app. Because nothing is sent to us, there is no server-side
+        copy to request or delete.
+      </p>
+
+      <h2>Third parties</h2>
+      <p>
+        The app contains no advertising networks, no analytics or crash-reporting SDKs, and no
+        social plugins. It does not use cookies for tracking. Distributing through Google Play or
+        the App Store means those stores may collect their own installation and diagnostic
+        information under their own privacy policies; that is outside this app's control.
+      </p>
+
+      <h2>Children</h2>
+      <p>
+        TorqueMedic is a tool for vehicle owners and is not directed at children. It collects no
+        data from anyone, including children.
+      </p>
+
+      <h2>Your vehicle's data</h2>
+      <p>
+        Diagnostic data can include the VIN, which identifies a specific vehicle. Because it stays
+        on your device, you remain in control of it: delete it by clearing the app's data, or by
+        disconnecting the adapter.
+      </p>
+
+      <h2>Changes to this policy</h2>
+      <p>
+        If a future version of the app adds a feature that changes any of the above — for example
+        optional cloud backup — this page will be updated before that feature ships, with a new
+        effective date.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        Questions about privacy can go to
+        <a href="mailto:support@torquemaniaq.com">support@torquemaniaq.com</a>.
+      </p>
+
+      <footer>
+        TorqueMedic is a diagnostic aid, not a substitute for professional inspection or repair.
+        Always follow the vehicle manufacturer's procedures.
+      </footer>
+    </main>
+  </body>
+</html>

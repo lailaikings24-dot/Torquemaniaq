@@ -51,11 +51,21 @@ npm run icons        # regenerate the PNG app icons
 *Install*. Works offline; Bluetooth LE via Web Bluetooth.
 
 **iPhone** — Safari cannot reach Bluetooth from a web page at all, so the
-installed app is the supported route: `native/ios` wraps this same web app in a
-Capacitor shell with a CoreBluetooth plugin. Wi-Fi adapters work in Safari
-through the WebSocket bridge without any native build.
+installed app is the supported route. Wi-Fi adapters work in Safari through the
+WebSocket bridge without any native build.
 
-Both native projects are documented in [native/README.md](native/README.md).
+**Installable apps** — `android/` and `ios/` are real Capacitor projects built
+from this same web app, each with a native Bluetooth plugin, launcher icons and
+permissions already wired:
+
+```bash
+npm run native:sync            # build + copy the web app into both projects
+npx cap open android           # Android Studio → run, or gradlew assembleDebug
+npx cap open ios               # Xcode → run on a device (needs macOS)
+```
+
+See [native/README.md](native/README.md) for signing, the remote-server option
+and what each platform can and cannot reach.
 
 ## Adapters
 
@@ -94,7 +104,8 @@ src/
 │   └── service.ts         scan / live data / clear orchestration
 ├── components/            shared UI
 └── pages/                 Connect, Dashboard, Live, Codes, Repair, Vehicle, Tools
-native/                    Capacitor plugins for Android and iOS
+android/ ios/              generated Capacitor projects (see native/README.md)
+native/                    plugin sources + the native build guide
 scripts/                   protocol checks, icon generation
 ```
 
@@ -106,6 +117,23 @@ scripts/                   protocol checks, icon generation
 - `npm run check:host` — shell routing for every app URL, canonical slash
   redirects, honest 404s, cache headers, and that the worker's route map still
   matches the app's.
+- `npm run check:native` — the Android and iOS projects carry the same web
+  build, register the Bluetooth plugin, declare their permissions and usage
+  strings, and apply the Kotlin plugin the Android source needs.
+- `cd android && ./gradlew assembleDebug` — builds a real debug APK (needs a JDK
+  and the Android SDK; verified: 4.5 MB, targetSdk 36, Bluetooth permissions
+  merged, plugin classes in the dex).
+
+## Shipping to the stores
+
+Signed release artifacts (`release/`), store copy and graphics (`store/`), and the
+full submission checklist are described in [store/SUBMISSION.md](store/SUBMISSION.md).
+Store screenshots are captured from the running app at both stores' exact pixel
+sizes with `npm run store:screenshots` (see `scripts/store-screenshots.mjs`).
+
+That document also lists what only the store account owner can do and what remains
+unverified: the iOS app has not been compiled (no Xcode here) and no build has run
+on a physical phone for either platform.
 
 ## Hosting
 

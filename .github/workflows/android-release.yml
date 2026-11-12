@@ -1,0 +1,77 @@
+name: Android release
+
+# Produces a signed Play-ready App Bundle (and an installable release APK).
+# Required repository secrets:
+#   TORQUEMEDIC_KEYSTORE_BASE64  base64 of the upload keystore (android/keystore/torquemedic-release.jks)
+#   TORQUEMEDIC_STORE_PASSWORD   keystore password
+#   TORQUEMEDIC_KEY_ALIAS        key alias (torquemedic)
+#   TORQUEMEDIC_KEY_PASSWORD     key password
+# Without them the Gradle build refuses to produce an unsigned release.
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - uses: android-actions/setup-android@v3
+
+      - name: Install web dependencies and build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Copy the web build and plugin registration into the native projects
+        run: |
+          npx cap sync
+          node scripts/native-register.mjs
+
+      - name: Restore the upload key
+        env:
+          KEYSTORE_BASE64: ${{ secrets.TORQUEMEDIC_KEYSTORE_BASE64 }}
+          STORE_PASSWORD: ${{ secrets.TORQUEMEDIC_STORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.TORQUEMEDIC_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.TORQUEMEDIC_KEY_PASSWORD }}
+        run: |
+          set -euo pipefail
+          echo "$KEYSTORE_BASE64" | base64 -d > android/keystore.jks
+          printf 'storeFile=keystore.jks\nstorePassword=%s\nkeyAlias=%s\nkeyPassword=%s\n' \
+            "$STORE_PASSWORD" "${KEY_ALIAS:-torquemedic}" "$KEY_PASSWORD" > android/keystore.properties
+
+      - name: Build signed bundle and APK
+        working-directory: android
+        run: ./gradlew bundleRelease assembleRelease --no-daemon --console=plain
+
+      - name: Verify the signature
+        run: |
+          set -euo pipefail
+          APKSIGNER=$(find "$ANDROID_HOME/build-tools" -name apksigner | sort | tail -1)
+          "$APKSIGNER" verify --verbose android/app/build/outputs/apk/release/app-release.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: torquemedic-android-release
+          path: |
+            android/app/build/outputs/bundle/release/app-release.aab
+            android/app/build/outputs/apk/release/app-release.apk
+          if-no-files-found: error
+          retention-days: 30

@@ -1232,3 +1232,27 @@ button,
     overscroll-behavior: none;
   }
 }
+
+/* Phones: two cards side by side get ~156px each at 360px wide, and their own
+   contents (three stat labels, an adapter pill, paired metric values) are wider
+   than that. The cards then paint past the viewport and the right edge is
+   cropped on a real phone. Stack them and let every card shrink. */
+@media (max-width: 640px) {
+  .grid-2 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.card {
+  min-width: 0;
+}
+
+@media (max-width: 400px) {
+  .card-pad {
+    padding: 14px;
+  }
+  .stat-label {
+    font-size: 10.5px;
+    letter-spacing: 0.04em;
+  }
+}
