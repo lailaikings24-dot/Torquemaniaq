@@ -48,7 +48,7 @@ npm run android:open     # open android/ in Android Studio
 npm run icons:android    # launcher icons + splash, rendered from public/icon.svg
 ```
 
-A Play Store bundle needs JDK 21 and Android SDK 35:
+A Play Store bundle needs JDK 21 and Android SDK 36:
 
 ```bash
 npm run android:bundle   # android/app/build/outputs/bundle/release/app-release.aab

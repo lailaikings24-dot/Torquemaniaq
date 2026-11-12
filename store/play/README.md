@@ -1,5 +1,8 @@
 # Play Store listing assets
 
+For the console-side steps, testing requirements and version bumps, see
+[RELEASE-CHECKLIST.md](RELEASE-CHECKLIST.md).
+
 Upload-ready art for the Google Play listing, generated from the app's own brand
 (`public/icon.svg`) and the running app — no stock imagery.
 

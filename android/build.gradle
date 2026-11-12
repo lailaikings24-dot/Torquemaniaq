@@ -10,7 +10,8 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.7.2'
+        // AGP 8.9.1 is the minimum that supports compileSdk 36 (Android 16).
+        classpath 'com.android.tools.build:gradle:8.9.1'
         classpath 'com.google.gms:google-services:4.4.2'
         // VehicleLinkPlugin.kt is Kotlin, so the app module needs the Kotlin plugin.
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
