@@ -111,6 +111,8 @@ scripts/                   protocol checks, icon generation
 - `npm run check:host` — shell routing for every app URL, canonical slash
   redirects, honest 404s, cache headers, and that the worker's route map still
   matches the app's.
+- `npm run check:versions` — the Android `versionName` still matches
+  `package.json`, so Play and the About card cannot disagree.
 
 ## Hosting
 

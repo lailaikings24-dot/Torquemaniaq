@@ -56,6 +56,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Check version name matches package.json
+        run: npm run check:versions
+
       - name: Build the web app and sync it into Android
         run: npm run android:sync
 
