@@ -119,6 +119,12 @@ build if the AAB is not signed, uploads it as an artifact, and deletes the
 keystore and properties file even when a step fails. The AAB lands under
 Actions → the tag's run → Artifacts.
 
+**Dry run without secrets.** Actions → *Android release bundle* → *Run workflow*
+builds the same bundle unsigned: the signing steps are skipped, the check flips
+to `jar is unsigned`, and the artifact is named `torquemedic-dry-run-<run>`. Use
+it to confirm the SDK, Node and Gradle toolchain before configuring secrets or
+pushing a tag.
+
 ### iOS project (macOS only)
 
 ```bash

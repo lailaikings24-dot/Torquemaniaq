@@ -1,6 +1,8 @@
 name: Android release bundle
 
 # Produces a signed Play upload bundle for every version tag (v1.0.0, v2.1.0…).
+# A manual run (Actions → Android release bundle → Run workflow) builds the same
+# bundle unsigned, so the CI toolchain can be checked without signing secrets.
 #
 # Repository secrets (Settings → Secrets and variables → Actions):
 #   ANDROID_KEYSTORE_BASE64    base64 of the upload keystore .jks
@@ -15,6 +17,7 @@ on:
   push:
     tags:
       - 'v*'
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -57,6 +60,7 @@ jobs:
         run: npm run android:sync
 
       - name: Require signing secrets
+        if: github.event_name == 'push'
         env:
           KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
         run: |
@@ -66,6 +70,7 @@ jobs:
           fi
 
       - name: Write the keystore and signing properties
+        if: github.event_name == 'push'
         env:
           KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
           STORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
@@ -81,21 +86,30 @@ jobs:
             echo "keyPassword=$KEY_PASSWORD"
           } > android/keystore.properties
 
-      - name: Build signed App Bundle
+      - name: Build the App Bundle
         working-directory: android
         run: ./gradlew bundleRelease --no-daemon --console=plain
 
       - name: Verify the bundle is signed
+        if: github.event_name == 'push'
         working-directory: android
         run: |
           set -euo pipefail
           jarsigner -verify app/build/outputs/bundle/release/app-release.aab | tee /tmp/signature.txt
           grep -q "jar verified" /tmp/signature.txt
 
+      - name: Verify the bundle is unsigned (dry run)
+        if: github.event_name == 'workflow_dispatch'
+        working-directory: android
+        run: |
+          set -euo pipefail
+          jarsigner -verify app/build/outputs/bundle/release/app-release.aab | tee /tmp/signature.txt
+          grep -q "jar is unsigned" /tmp/signature.txt
+
       - name: Upload the AAB
         uses: actions/upload-artifact@v4
         with:
-          name: torquemedic-${{ github.ref_name }}
+          name: torquemedic-${{ github.event_name == 'push' && github.ref_name || format('dry-run-{0}', github.run_number) }}
           path: android/app/build/outputs/bundle/release/app-release.aab
           if-no-files-found: error
 
