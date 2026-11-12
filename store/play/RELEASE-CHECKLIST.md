@@ -24,9 +24,10 @@ Build, signing, branding and listing art are already done in this repo.
 
 ## 2. App setup in Play Console
 
-Copy-paste answers for every App content section — app access, ads, content
-rating, target audience, Data safety, permissions and listing fields — are in
-[CONSOLE-ANSWERS.md](CONSOLE-ANSWERS.md).
+For the first Console session, follow [FIRST-SESSION.md](FIRST-SESSION.md) in
+order. Copy-paste answers for every App content section — app access, ads,
+content rating, target audience, Data safety, permissions and listing fields —
+are in [CONSOLE-ANSWERS.md](CONSOLE-ANSWERS.md).
 
 - [ ] **Create the app.** Name `TorqueMedic: OBD2 Scanner` (25 characters),
       default language, App (not game), Free. The package name

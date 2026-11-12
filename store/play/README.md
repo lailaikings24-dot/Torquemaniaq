@@ -6,8 +6,9 @@ answered in [DATA-SAFETY.md](DATA-SAFETY.md), the content rating in
 [CONTENT-RATING.md](CONTENT-RATING.md), the listing text in
 [STORE-LISTING.md](STORE-LISTING.md), tester instructions in
 [TESTER-GUIDE.md](TESTER-GUIDE.md), draft production-access answers in
-[PRODUCTION-ACCESS.md](PRODUCTION-ACCESS.md), and a copy-paste sheet for every
-App content question in [CONSOLE-ANSWERS.md](CONSOLE-ANSWERS.md).
+[PRODUCTION-ACCESS.md](PRODUCTION-ACCESS.md), a copy-paste sheet for every App
+content question in [CONSOLE-ANSWERS.md](CONSOLE-ANSWERS.md), and a first-session
+order of operations in [FIRST-SESSION.md](FIRST-SESSION.md).
 
 Upload-ready art for the Google Play listing, generated from the app's own brand
 (`public/icon.svg`) and the running app — no stock imagery.
