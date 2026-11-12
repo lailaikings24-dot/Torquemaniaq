@@ -11,13 +11,14 @@ full description 4000. The short and full text below are inside those limits.
 | Short description | `Read OBD-II codes, watch live data, and follow guided repairs.` (62 characters) |
 | Category | Auto & Vehicles |
 | Tags (if offered) | OBD2, car scanner, diagnostics, ELM327, repair |
-| Contact email | `privacy@torquemaniaq.com` — must be a monitored mailbox |
+| Contact email | `lailaikings24@gmail.com` — a monitored mailbox |
 | Website | https://site-d29bccb8b69e4f628bad28288fc50584.freebuff.page |
 | Privacy policy | https://site-d29bccb8b69e4f628bad28288fc50584.freebuff.page/privacy |
 
 Swap the website for `https://www.torquemaniaq.com` once that domain finishes
-verification. If you would rather not publish `privacy@`, create a support alias
-(`support@torquemaniaq.com`) and use it for both the Play contact and the policy.
+verification. The contact address is a Gmail mailbox, not an `@torquemaniaq.com`
+address: the domain has no mail records yet, so do not publish a domain address
+until it can actually receive mail.
 
 ## Full description
 
@@ -93,7 +94,8 @@ the text. Keep these out:
 
 - **Developer name:** the name shown on the listing (your account name or
   `TorqueMedic`).
-- **Email:** `privacy@torquemaniaq.com`, or the support alias above.
+- **Email:** `lailaikings24@gmail.com` — the same address as the policy page and
+  the app.
 - **Website:** the deployed URL until the custom domain is live.
 - **Phone:** optional — only publish a number you are willing to support.
 - **Address:** Play requires a developer address for some account types, and EU

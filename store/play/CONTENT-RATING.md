@@ -8,8 +8,8 @@ answers below as the position to defend, not as a transcript.
 
 - **Path:** Play Console → Policy → App content → Content rating → Start.
 - **Contact email:** use a mailbox you monitor. IARC correspondence (including
-  the rating certificate) goes there. `privacy@torquemaniaq.com` is the address
-  used by the policy page, so use it here too once the mailbox exists.
+  the rating certificate) goes there. Use `lailaikings24@gmail.com`, the address
+  on the policy page and in the app.
 - **Category:** *Utility, Productivity, Communication or Other*. TorqueMedic is a
   diagnostic tool, not a game, and not reference/news/educational content.
 - **Privacy policy:** https://site-d29bccb8b69e4f628bad28288fc50584.freebuff.page/privacy

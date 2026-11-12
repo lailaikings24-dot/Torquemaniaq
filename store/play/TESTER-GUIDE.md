@@ -139,7 +139,7 @@ anything safety-related.
 
 ## Reporting a problem
 
-Email **privacy@torquemaniaq.com** with the subject
+Email **lailaikings24@gmail.com** with the subject
 `TorqueMedic test — <phone model>` and include:
 
 1. **Version** from Tools → About, and whether it is the Play build, the debug

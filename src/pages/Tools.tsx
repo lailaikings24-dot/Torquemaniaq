@@ -256,9 +256,9 @@ export function Tools() {
           <div className="row">
             <div style={{ flex: 1 }}>
               <div className="strong small">Support</div>
-              <div className="tiny muted">privacy@torquemaniaq.com</div>
+              <div className="tiny muted">lailaikings24@gmail.com</div>
             </div>
-            <a className="btn btn-sm btn-ghost" href="mailto:privacy@torquemaniaq.com">
+            <a className="btn btn-sm btn-ghost" href="mailto:lailaikings24@gmail.com">
               Email
             </a>
           </div>

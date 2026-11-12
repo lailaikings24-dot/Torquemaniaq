@@ -158,7 +158,7 @@ export function Privacy() {
             <h2 className="card-title">Contact</h2>
             <p className="small muted">
               Questions about this policy or the app&apos;s data handling:{' '}
-              <a href="mailto:privacy@torquemaniaq.com">privacy@torquemaniaq.com</a>. You can also open an issue in the
+              <a href="mailto:lailaikings24@gmail.com">lailaikings24@gmail.com</a>. You can also open an issue in the
               project repository.
             </p>
           </div>

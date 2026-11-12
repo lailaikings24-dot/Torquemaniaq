@@ -19,7 +19,7 @@ be sent back for more testing.
 - [ ] You shipped at least one build during the test if feedback called for it.
 - [ ] Android vitals checked for crashes and ANRs in the final week.
 - [ ] Store listing, Data safety, content rating and privacy policy complete.
-- [ ] `privacy@torquemaniaq.com` is monitored — it is the support address in the
+- [ ] `lailaikings24@gmail.com` is monitored — it is the support address in the
       listing and the app.
 - [ ] Keep the closed track and tester list in place until the decision arrives.
 
@@ -76,7 +76,7 @@ applying rather than describing it as engagement.
 Three to five concrete points, good and bad, and the channel. "All positive, no
 issues" from twelve people reads as a test that did not happen.
 
-> I collected feedback by email to [privacy@torquemaniaq.com], through Play's
+> I collected feedback by email to [lailaikings24@gmail.com], through Play's
 > private testing feedback, and from adapter logs testers exported from the app.
 > The main points were:
 >
@@ -149,7 +149,7 @@ Evidence, not adjectives: devices, Android versions, flows and stability.
 > codes, live data, the repair assistant, custom PIDs, CSV export and clear all
 > data]. Android vitals showed no crashes or ANRs during the final week. The store
 > listing, Data safety form, content rating and privacy policy are complete, and
-> support mail to [privacy@torquemaniaq.com] is answered.
+> support mail to [lailaikings24@gmail.com] is answered.
 
 If vitals recorded crashes, state the number and the fix instead of the clean-week
 sentence.
