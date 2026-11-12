@@ -6,6 +6,7 @@ import { download } from '../lib/storage';
 import { PRIVACY_PATH } from '../lib/routes';
 import { Icon } from '../components/Icon';
 import { Modal } from '../components/Modal';
+import { version } from '../../package.json';
 
 export function Tools() {
   const { customPids, addCustomPid, removeCustomPid, logs, clearLogs, clearAllData, imperial, setImperial, conn } =
@@ -180,26 +181,6 @@ export function Tools() {
             <div className="divider" />
             <div className="row">
               <div style={{ flex: 1 }}>
-                <div className="strong small">Privacy policy</div>
-                <div className="tiny muted">What the app stores, and what it never sends</div>
-              </div>
-              <a
-                className="btn btn-sm btn-ghost"
-                href={PRIVACY_PATH}
-                onClick={(e) => {
-                  // Client-side, so the installed app never requests a path the
-                  // WebView cannot resolve. pushState gives Back a history entry.
-                  e.preventDefault();
-                  window.history.pushState({}, '', PRIVACY_PATH);
-                  window.dispatchEvent(new PopStateEvent('popstate'));
-                }}
-              >
-                <Icon name="info" size={13} /> Open
-              </a>
-            </div>
-            <div className="divider" />
-            <div className="row">
-              <div style={{ flex: 1 }}>
                 <div className="strong small">Clear all app data</div>
                 <div className="tiny muted">Vehicle profile, repair history, custom PIDs and preferences</div>
               </div>
@@ -235,6 +216,51 @@ export function Tools() {
               </div>
             ))}
             {logs.length === 0 && <div className="term-line muted">No traffic yet.</div>}
+          </div>
+        </div>
+      </div>
+
+      <div className="card">
+        <div className="card-head">
+          <div className="card-title">About</div>
+        </div>
+        <div className="card-pad col">
+          <div className="row">
+            <div style={{ flex: 1 }}>
+              <div className="strong small">TorqueMedic</div>
+              <div className="tiny muted">OBD-II diagnostics · version {version}</div>
+            </div>
+            <span className="pill pill-muted">{conn.status === 'connected' ? 'Link up' : 'Offline ready'}</span>
+          </div>
+          <div className="divider" />
+          <div className="row">
+            <div style={{ flex: 1 }}>
+              <div className="strong small">Privacy policy</div>
+              <div className="tiny muted">What the app stores, and what it never sends</div>
+            </div>
+            <a
+              className="btn btn-sm btn-ghost"
+              href={PRIVACY_PATH}
+              onClick={(e) => {
+                // Client-side, so the installed app never requests a path the
+                // WebView cannot resolve. pushState gives Back a history entry.
+                e.preventDefault();
+                window.history.pushState({}, '', PRIVACY_PATH);
+                window.dispatchEvent(new PopStateEvent('popstate'));
+              }}
+            >
+              <Icon name="info" size={13} /> Open
+            </a>
+          </div>
+          <div className="divider" />
+          <div className="row">
+            <div style={{ flex: 1 }}>
+              <div className="strong small">Support</div>
+              <div className="tiny muted">privacy@torquemaniaq.com</div>
+            </div>
+            <a className="btn btn-sm btn-ghost" href="mailto:privacy@torquemaniaq.com">
+              Email
+            </a>
           </div>
         </div>
       </div>
