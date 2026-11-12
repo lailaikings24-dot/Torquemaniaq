@@ -105,6 +105,8 @@ scripts/                   protocol checks, icon generation
 
 ## Verification
 
+- `npm run check` — every check below in one command: protocol, host, versions,
+  then the typecheck and production build.
 - `npm run build` — typecheck and bundle clean.
 - `npm run check:protocol` — the full suite driving the real transport → parser →
   service → store stack against the emulator.
