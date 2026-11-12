@@ -125,6 +125,11 @@ to `jar is unsigned`, and the artifact is named `torquemedic-dry-run-<run>`. Use
 it to confirm the SDK, Node and Gradle toolchain before configuring secrets or
 pushing a tag.
 
+The same run also uploads `torquemedic-debug-<run>`, a debug-signed APK that can
+be installed straight from the artifact for testing. It is signed with the
+runner's throwaway debug key, so uninstall any Play or upload-key build first —
+Android will refuse to install it over a differently signed copy.
+
 Before building, the workflow runs the protocol, host and version checks
 (`npm run check:static`). It does not build there — `android:sync` builds the web
 app once — so a code or routing failure stops the job before Gradle starts.
