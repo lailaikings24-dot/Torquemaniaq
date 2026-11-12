@@ -20,6 +20,11 @@ const assets = {
     const { pathname } = new URL(request.url);
     if (pathname === '/') return new Response(SHELL_HTML, { headers: { 'content-type': 'text/html; charset=utf-8' } });
     if (pathname === '/index.html') return new Response(null, { status: 307, headers: { location: '/' } });
+    if (pathname === '/privacy.htm') {
+      return new Response('<!doctype html><h1>Privacy Policy</h1><p>no data collected</p>', {
+        headers: { 'content-type': 'text/html; charset=utf-8' },
+      });
+    }
     if (pathname === '/sw.js') return new Response('// sw', { headers: { 'content-type': 'text/javascript' } });
     if (pathname === '/manifest.webmanifest') {
       return new Response('{"name":"x"}', { headers: { 'content-type': 'application/manifest+json' } });
@@ -39,6 +44,7 @@ async function check(name, request, expect) {
   const problems = [];
   if (res.status !== expect.status) problems.push(`status ${res.status} != ${expect.status}`);
   if (expect.body && !body.includes(expect.body)) problems.push(`body missing "${expect.body}" (${body.length} bytes)`);
+  if (expect.absent && body.includes(expect.absent)) problems.push(`body unexpectedly contains "${expect.absent}"`);
   if (expect.type && !(res.headers.get('content-type') || '').startsWith(expect.type)) {
     problems.push(`content-type ${res.headers.get('content-type')} != ${expect.type}`);
   }
@@ -98,6 +104,33 @@ await check('unknown page path falls back to the shell, not a 404', get('/no-suc
   status: 200,
   body: 'id="root"',
   type: 'text/html',
+});
+// The privacy policy URL is pasted into both store listings, so it must be the
+// policy page itself — the app shell here would show a login-less car app.
+await check('standalone privacy page is served as itself', get('/privacy.html'), {
+  status: 200,
+  body: 'Privacy Policy',
+  absent: 'id="root"',
+  type: 'text/html',
+  cacheControl: 'no-cache, must-revalidate',
+  noLocation: true,
+});
+// The asset layer drops non-index .html files, so the policy ships as .htm and
+// the worker has to honour the URL the store listings actually publish.
+await check('privacy alias serves the policy, not the shell', get('/privacy'), {
+  status: 200,
+  body: 'Privacy Policy',
+  absent: 'id="root"',
+  type: 'text/html',
+  noLocation: true,
+});
+await check('privacy page keeps the published URL after the .htm rename', get('/privacy.html', 'text/html'), {
+  status: 200,
+  body: 'Privacy Policy',
+});
+await check('missing standalone page is a real 404', get('/terms.html'), {
+  status: 404,
+  type: 'text/plain',
 });
 await check('manifest is treated as a file, not a page', get('/manifest.webmanifest', '*/*'), {
   status: 200,

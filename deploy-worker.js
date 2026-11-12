@@ -7,10 +7,12 @@
  *   - Routing: each screen has one canonical path. A trailing slash
  *     ("/codes/") is redirected to it, so the app never runs on two URLs.
  *     /, /index.html and any unknown page path return the shell, so a bookmark
- *     or a stale link can never produce a 404 page.
- *   - Assets: a missing .js/.css/.png is a real 404. Returning the HTML shell
- *     with 200 instead would surface as a confusing MIME-type error in the
- *     console after a stale deploy.
+ *     or a stale link can never produce a 404 page. Standalone pages such as
+ *     /privacy.html are files, not screens, and are served as written (the
+ *     privacy file itself ships as .htm, see PRIVACY_FILE below).
+ *   - Assets: a missing .js/.css/.png/.html is a real 404. Returning the HTML
+ *     shell with 200 instead would surface as a confusing MIME-type error in
+ *     the console after a stale deploy.
  *   - Freshness: the shell, manifest and service worker must not be cached, or
  *     a redeploy would keep serving the previous version.
  *
@@ -26,13 +28,27 @@
  */
 export const APP_ROUTES = ['/', '/live', '/codes', '/repair', '/vehicle', '/tools', '/connect'];
 
-const NO_STORE = ['/', '/index.html', '/sw.js', '/manifest.webmanifest'];
+const NO_STORE = ['/', '/index.html', '/privacy.html', '/sw.js', '/manifest.webmanifest'];
 
 /** Anything with a file extension, or in a build directory, is a file — not a page. */
 const FILE_EXT =
-  /\.(js|mjs|css|map|json|webmanifest|png|jpe?g|gif|svg|ico|webp|avif|woff2?|ttf|otf|txt|xml|wasm|pdf|csv)$/i;
+  /\.(html?|js|mjs|css|map|json|webmanifest|png|jpe?g|gif|svg|ico|webp|avif|woff2?|ttf|otf|txt|xml|wasm|pdf|csv)$/i;
+
+/**
+ * The stores link to /privacy.html, but the asset layer only publishes a
+ * standalone HTML file with the .htm extension — any other .html is dropped
+ * from the upload, and /index.html is the app shell. One file, served under the
+ * advertised URL and a short alias, keeps the store listing stable.
+ */
+const PRIVACY_FILE = '/privacy.htm';
+const PRIVACY_ALIASES = ['/privacy.html', '/privacy'];
 
 function isAssetPath(pathname) {
+  // /index.html is the shell and must keep going through the page path; the
+  // asset layer answers a direct request for it with 307 → "/". Standalone
+  // pages such as /privacy.html are real files that the stores link to and
+  // must be served as themselves, never replaced by the app shell.
+  if (pathname === '/index.html') return false;
   return pathname.startsWith('/assets/') || pathname.startsWith('/icons/') || FILE_EXT.test(pathname);
 }
 
@@ -63,10 +79,29 @@ async function shell(env, url, request) {
   return withHeaders(response, '/index.html');
 }
 
+async function privacyPage(env, url, request) {
+  const response = await env.ASSETS.fetch(new Request(new URL(PRIVACY_FILE, url), request));
+  if (response.status !== 200) {
+    return new Response('Privacy policy unavailable', {
+      status: 404,
+      headers: { 'content-type': 'text/plain; charset=utf-8', 'cache-control': 'no-store' },
+    });
+  }
+  const headers = new Headers(response.headers);
+  headers.set('content-type', 'text/html; charset=utf-8');
+  headers.set('cache-control', 'no-cache, must-revalidate');
+  return new Response(request.method === 'HEAD' ? null : response.body, { status: 200, headers });
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     const method = request.method;
+
+    if ((method === 'GET' || method === 'HEAD') && PRIVACY_ALIASES.includes(url.pathname)) {
+      return privacyPage(env, url, request);
+    }
+
     const page = (method === 'GET' || method === 'HEAD') && !isAssetPath(url.pathname);
 
     if (page) {

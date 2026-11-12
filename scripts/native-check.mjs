@@ -136,7 +136,7 @@ check(
 );
 
 // Both stores require a reachable privacy policy for Bluetooth/location access.
-const privacy = read('public/privacy.html');
+const privacy = read('public/privacy.htm');
 check(
   'privacy policy page exists and covers the permissions',
   privacy.includes('BLUETOOTH_SCAN') && privacy.includes('neverForLocation') && privacy.length > 2000,
