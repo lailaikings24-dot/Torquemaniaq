@@ -97,7 +97,9 @@ Assets are in `store/play/` and already meet Play's specs:
    removing it breaks the run.
 
 - [ ] Apply for production access from the Dashboard and answer the closed-test
-      questions (who tested, what you fixed, what changed).
+      questions (who tested, what you fixed, what changed). Draft answers with
+      placeholders for your real numbers are in
+      [PRODUCTION-ACCESS.md](PRODUCTION-ACCESS.md).
 - [ ] Roll out to production, starting with a staged percentage.
 
 ## 6. Every future release

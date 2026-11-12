@@ -4,8 +4,9 @@ For the console-side steps, testing requirements and version bumps, see
 [RELEASE-CHECKLIST.md](RELEASE-CHECKLIST.md). The Data safety questionnaire is
 answered in [DATA-SAFETY.md](DATA-SAFETY.md), the content rating in
 [CONTENT-RATING.md](CONTENT-RATING.md), the listing text in
-[STORE-LISTING.md](STORE-LISTING.md), and tester instructions in
-[TESTER-GUIDE.md](TESTER-GUIDE.md).
+[STORE-LISTING.md](STORE-LISTING.md), tester instructions in
+[TESTER-GUIDE.md](TESTER-GUIDE.md), and draft production-access answers in
+[PRODUCTION-ACCESS.md](PRODUCTION-ACCESS.md).
 
 Upload-ready art for the Google Play listing, generated from the app's own brand
 (`public/icon.svg`) and the running app — no stock imagery.
