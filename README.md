@@ -106,7 +106,8 @@ scripts/                   protocol checks, icon generation
 ## Verification
 
 - `npm run check` — every check below in one command: protocol, host, versions,
-  then the typecheck and production build.
+  then the typecheck and production build. `npm run check:static` runs the first
+  three only, which is what CI uses before its single build.
 - `npm run build` — typecheck and bundle clean.
 - `npm run check:protocol` — the full suite driving the real transport → parser →
   service → store stack against the emulator.

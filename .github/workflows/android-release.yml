@@ -56,8 +56,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Check version name matches package.json
-        run: npm run check:versions
+      # No build here: android:sync builds the web app once, further down.
+      - name: Run static checks
+        run: npm run check:static
 
       - name: Build the web app and sync it into Android
         run: npm run android:sync
