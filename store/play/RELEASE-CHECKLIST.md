@@ -29,8 +29,9 @@ Build, signing, branding and listing art are already done in this repo.
 - [ ] **App access.** All functionality is reachable without an account; the
       demo vehicle covers Bluetooth. State that no login is required.
 - [ ] **Ads.** No ads.
-- [ ] **Content rating.** Complete the IARC questionnaire (utility/tools, no
-      user-generated content, no violence). Expect Everyone / PEGI 3.
+- [ ] **Content rating.** Complete the IARC questionnaire as a utility app and
+      answer **No** to every content question. The answer sheet and the expected
+      regional ratings are in [CONTENT-RATING.md](CONTENT-RATING.md).
 - [ ] **Target audience.** Not designed for children; do not opt into the
       Families programme.
 - [ ] **Data safety.** Answer **No** to collecting or sharing data. The exact
