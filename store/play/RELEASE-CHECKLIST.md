@@ -119,7 +119,8 @@ the exact account on the list.
       they can even apply for production. Internal testing does not count, and
       an opted-out tester restarts their clock. Organisation accounts are exempt.
       Tester instructions (Play opt-in, debug APK, bug reports) are in
-      [TESTER-GUIDE.md](TESTER-GUIDE.md).
+      [TESTER-GUIDE.md](TESTER-GUIDE.md); a dated 14-day plan is in
+      [TEST-SCHEDULE.md](TEST-SCHEDULE.md).
 
 ### Closed-test setup (developer side)
 
