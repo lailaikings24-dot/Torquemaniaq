@@ -77,6 +77,25 @@ Assets are in `store/play/` and already meet Play's specs:
       an opted-out tester restarts their clock. Organisation accounts are exempt.
       Tester instructions (Play opt-in, debug APK, bug reports) are in
       [TESTER-GUIDE.md](TESTER-GUIDE.md).
+
+### Closed-test setup (developer side)
+
+1. Finish every **App content** declaration first — testing tracks stay locked
+   until the required forms are complete.
+2. **Test and release → Testing → Closed testing → Create track.** Name it (for
+   example `Beta`), add the countries your testers are in, and roll out the
+   signed AAB. The first rollout goes through Play review.
+3. **Testers tab → Manage testers.** Use an email list or a Google Group, and
+   add more than 12 people — 15–20 gives a buffer, because one dropout drops you
+   below the requirement.
+4. Copy the **opt-in link** from the Testers tab (it looks like
+   `https://play.google.com/apps/testing/com.torquemedic.app`) and send it with
+   the invite message from TESTER-GUIDE.md.
+5. Ask each tester to confirm they installed from Play. Someone who joins the
+   list but never installs is a wasted slot.
+6. Leave the track and the rollout live for the whole 14 days. Pausing or
+   removing it breaks the run.
+
 - [ ] Apply for production access from the Dashboard and answer the closed-test
       questions (who tested, what you fixed, what changed).
 - [ ] Roll out to production, starting with a staged percentage.
