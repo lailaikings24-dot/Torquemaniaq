@@ -102,7 +102,7 @@ export function Codes() {
       <div className="grid grid-2">
         <div className="card card-pad">
           <div className="card-title" style={{ marginBottom: 10 }}>MIL & readiness</div>
-          <div className="row" style={{ marginBottom: 10 }}>
+          <div className="row row-wrap" style={{ marginBottom: 10 }}>
             <span className={`pill ${monitors?.mil ? 'pill-danger' : 'pill-ok'}`}>
               <span className="dot" /> {monitors?.mil ? 'Check engine light ON' : 'Light OFF'}
             </span>
