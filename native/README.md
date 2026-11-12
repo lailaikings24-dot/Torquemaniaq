@@ -104,20 +104,84 @@ rejects a bundle that reuses a code already on the track.
 ### CI: signed bundles on tags
 
 `.github/workflows/android-release.yml` builds, verifies and uploads a signed AAB
-whenever a `v*` tag is pushed. Add four repository secrets first
-(Settings → Secrets and variables → Actions):
+whenever a `v*` tag is pushed. Set this up once:
+
+**1. Encode the keystore.**
+
+```bash
+# Linux
+base64 -w0 ~/keys/torquemedic-upload.jks > ~/keys/upload.b64
+
+# macOS
+base64 -i ~/keys/torquemedic-upload.jks | tr -d '\n' > ~/keys/upload.b64
+```
+
+PowerShell:
+
+```powershell
+[Convert]::ToBase64String([IO.File]::ReadAllBytes("$HOME\keys\torquemedic-upload.jks")) |
+  Set-Content -NoNewline "$HOME\keys\upload.b64"
+```
+
+The value must be one line, with no `base64:` prefix.
+
+**2. Add four repository secrets** — Settings → Secrets and variables → Actions
+→ New repository secret:
 
 | Secret | Value |
 | --- | --- |
-| `ANDROID_KEYSTORE_BASE64` | `base64 -w0 ~/keys/torquemedic-upload.jks` |
+| `ANDROID_KEYSTORE_BASE64` | contents of `upload.b64` |
 | `ANDROID_KEYSTORE_PASSWORD` | store password |
-| `ANDROID_KEY_ALIAS` | key alias, usually `upload` |
-| `ANDROID_KEY_PASSWORD` | key password |
+| `ANDROID_KEY_ALIAS` | `upload` (must match the alias) |
+| `ANDROID_KEY_PASSWORD` | key password (same as store if you pressed Enter) |
 
-The workflow reconstructs `android/keystore.properties` in the runner, fails the
-build if the AAB is not signed, uploads it as an artifact, and deletes the
-keystore and properties file even when a step fails. The AAB lands under
-Actions → the tag's run → Artifacts.
+Or with the GitHub CLI:
+
+```bash
+gh secret set ANDROID_KEYSTORE_BASE64 < ~/keys/upload.b64
+gh secret set ANDROID_KEYSTORE_PASSWORD   # prompts; keeps it out of history
+gh secret set ANDROID_KEY_ALIAS --body upload
+gh secret set ANDROID_KEY_PASSWORD        # prompts
+```
+
+Then `rm ~/keys/upload.b64`. Secrets are write-only; you cannot read them back.
+
+**3. Tag the commit you want to ship.** A tag stays on the commit it was created
+at, so check it before pushing:
+
+```bash
+git rev-parse --short v1.0.0^{commit}
+git rev-parse --short HEAD
+```
+
+If they differ, recreate it:
+
+```bash
+git tag -d v1.0.0
+git tag -a v1.0.0 -m "TorqueMedic 1.0.0"
+git push origin v1.0.0
+```
+
+If the remote already has the tag, don't force it — use a new tag such as
+`v1.0.1`. Bump `versionCode` first if that code has been uploaded to any track.
+
+**4. Check the run.** Actions → *Android release bundle* → the tag's run. The
+workflow reconstructs `android/keystore.properties` in the runner, requires
+`jar verified`, writes the version, asset and AAB hashes to the job summary,
+uploads `torquemedic-<tag>`, and deletes the keystore even when a step fails.
+Download the artifact and re-check locally:
+
+```bash
+jarsigner -verify -verbose -certs torquemedic-v1.0.0.aab | tail -3
+# expect: jar verified.
+```
+
+**Common failures.** `keystore password was incorrect` or `Cannot recover key`
+means the store password, key password or alias is wrong (the alias is
+case-sensitive). `base64: invalid input` means the secret has line breaks.
+`jar is unsigned` in a tag run means the signing steps were skipped — check the
+"Require signing secrets" step. Avoid backslashes and leading or trailing spaces
+in passwords; they are written into a Java properties file.
 
 **Dry run without secrets.** Actions → *Android release bundle* → *Run workflow*
 builds the same bundle unsigned: the signing steps are skipped, the check flips
