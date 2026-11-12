@@ -3,7 +3,7 @@ import type { VinInfo } from '../lib/obd/vin';
 import type { MonitorItem, MonitorStatus } from '../lib/obd/dtc';
 import type { LinkKind } from '../lib/transport';
 import type { LogDir } from '../lib/elm327';
-import { load, save } from '../lib/storage';
+import { clearAll, load, save } from '../lib/storage';
 import { screenForPath } from '../lib/routes';
 
 export type Screen = 'connect' | 'dashboard' | 'live' | 'codes' | 'repair' | 'vehicle' | 'tools';
@@ -139,6 +139,7 @@ interface AppState {
   addRepair: (entry: RepairEntry) => void;
   updateRepair: (id: string, patch: Partial<RepairEntry>) => void;
   clearLogs: () => void;
+  clearAllData: () => void;
   resetSession: () => void;
 }
 
@@ -225,6 +226,36 @@ export const useApp = create<AppState>()((set, get) => ({
     set({ repairs });
   },
   clearLogs: () => set({ logs: [] }),
+  // Wipes what this device remembers, not the current adapter link: data is
+  // cleared immediately, while an open Bluetooth session keeps working.
+  clearAllData: () => {
+    clearAll();
+    set({
+      imperial: false,
+      livePids: DEFAULT_LIVE,
+      customPids: [],
+      repairs: [],
+      live: {},
+      liveActive: false,
+      liveHz: 0,
+      vin: null,
+      supported: [],
+      monitors: null,
+      cycleMonitors: null,
+      dtcs: [],
+      pending: [],
+      permanent: [],
+      ecus: [],
+      freeze: [],
+      freezeCode: null,
+      tests: [],
+      versions: {},
+      logs: [],
+      lastScanAt: null,
+      clearedAt: null,
+      selectedCode: null,
+    });
+  },
   resetSession: () =>
     set({
       supported: [],

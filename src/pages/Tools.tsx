@@ -8,11 +8,13 @@ import { Icon } from '../components/Icon';
 import { Modal } from '../components/Modal';
 
 export function Tools() {
-  const { customPids, addCustomPid, removeCustomPid, logs, clearLogs, imperial, setImperial, conn } = useApp();
+  const { customPids, addCustomPid, removeCustomPid, logs, clearLogs, clearAllData, imperial, setImperial, conn } =
+    useApp();
   const [cmd, setCmd] = useState('ATI');
   const [output, setOutput] = useState<{ cmd: string; res: string }[]>([]);
   const [busy, setBusy] = useState(false);
   const [addOpen, setAddOpen] = useState(false);
+  const [clearOpen, setClearOpen] = useState(false);
   const [results, setResults] = useState<Record<string, string>>({});
   const [draft, setDraft] = useState<Omit<CustomPid, 'id'>>({
     name: '',
@@ -198,6 +200,16 @@ export function Tools() {
             <div className="divider" />
             <div className="row">
               <div style={{ flex: 1 }}>
+                <div className="strong small">Clear all app data</div>
+                <div className="tiny muted">Vehicle profile, repair history, custom PIDs and preferences</div>
+              </div>
+              <button className="btn btn-sm btn-danger" onClick={() => setClearOpen(true)}>
+                Clear…
+              </button>
+            </div>
+            <div className="divider" />
+            <div className="row">
+              <div style={{ flex: 1 }}>
                 <div className="strong small">Session</div>
                 <div className="tiny muted">Bluetooth and Wi-Fi links are not persisted between visits</div>
               </div>
@@ -303,6 +315,34 @@ export function Tools() {
             <span className="mono">+ - * / ( )</span> are supported. Set the header to reach a non-engine module.
           </div>
         </div>
+      </Modal>
+
+      <Modal
+        open={clearOpen}
+        title="Clear all app data?"
+        onClose={() => setClearOpen(false)}
+        footer={
+          <>
+            <button className="btn btn-ghost" onClick={() => setClearOpen(false)}>
+              Cancel
+            </button>
+            <button
+              className="btn btn-danger"
+              onClick={() => {
+                clearAllData();
+                setClearOpen(false);
+              }}
+            >
+              Clear everything
+            </button>
+          </>
+        }
+      >
+        <p className="small muted" style={{ margin: 0 }}>
+          This removes the vehicle profile, VIN, repair history, custom PIDs, saved live PIDs, captured traffic and unit
+          preference from this device. Exported files are untouched, and the adapter stays connected. This cannot be
+          undone.
+        </p>
       </Modal>
     </div>
   );

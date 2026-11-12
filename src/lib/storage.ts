@@ -28,6 +28,23 @@ export function remove(key: string): void {
   }
 }
 
+/**
+ * Remove everything this app has stored. Scoped to our prefix so other apps on
+ * the same origin (and the browser's own data) are left alone.
+ */
+export function clearAll(): void {
+  try {
+    const keys: string[] = [];
+    for (let i = 0; i < localStorage.length; i += 1) {
+      const key = localStorage.key(i);
+      if (key?.startsWith(PREFIX)) keys.push(key);
+    }
+    for (const key of keys) localStorage.removeItem(key);
+  } catch {
+    /* storage unavailable — nothing was persisted to clear */
+  }
+}
+
 export function download(filename: string, content: string, type = 'text/plain'): void {
   const blob = new Blob([content], { type: `${type};charset=utf-8` });
   const url = URL.createObjectURL(blob);

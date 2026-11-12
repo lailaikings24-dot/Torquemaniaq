@@ -24,7 +24,7 @@ See <https://support.google.com/googleplay/android-developer/answer/10787469>.
 | --- | --- |
 | Does your app collect or share any of the required user data types? | **No** |
 | Is all of the user data collected by your app encrypted in transit? | Not shown after "No"; if it appears, there is no collected data to encrypt |
-| Do you provide a way for users to request deletion of their data? | Not shown after "No". In practice: uninstall the app or clear its storage |
+| Do you provide a way for users to request deletion of their data? | Not shown after "No". In practice: **Tools → Settings & data → Clear all app data**, or uninstall the app |
 | Has your app been independently validated against a global security standard? | **No** |
 | Data collected by third-party SDKs | None — there are no third-party runtime SDKs |
 

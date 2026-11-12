@@ -120,10 +120,11 @@ export function Privacy() {
           <div className="card card-pad col">
             <h2 className="card-title">Keeping and deleting your data</h2>
             <p className="small muted">
-              Because the data stays on your device, you stay in control of it. Clear the app&apos;s storage in Android
-              settings, or uninstall the app, to remove everything it has saved. Files you exported earlier remain
-              wherever you saved them until you delete them. We hold no server-side copy, so there is no request to send
-              us and no deletion queue to wait for.
+              Because the data stays on your device, you stay in control of it. Use <strong>Tools → Settings &amp;
+              data → Clear all app data</strong> to wipe the vehicle profile, repair history, custom PIDs and saved live
+              PIDs from inside the app, or clear the app&apos;s storage in Android settings, or uninstall the app. Files
+              you exported earlier remain wherever you saved them until you delete them. We hold no server-side copy, so
+              there is no request to send us and no deletion queue to wait for.
             </p>
           </div>
 
