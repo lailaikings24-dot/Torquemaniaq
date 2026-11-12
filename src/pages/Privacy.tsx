@@ -60,9 +60,10 @@ export function Privacy() {
               is processed on your device to show the dashboard, charts, code explanations and repair guidance.
             </p>
             <p className="small muted">
-              The app stores a small amount of information locally so it works the way you left it: your vehicle
-              profile, custom PIDs, repair notes, app settings and the last adapter you used. This is kept in the
-              app&apos;s private storage on your device and is not uploaded anywhere.
+              The app stores a small amount of information locally so it works the way you left it: custom PIDs, the
+              PIDs you chose for live data, repair notes and app settings. This is kept in the app&apos;s private
+              storage on your device and is not uploaded anywhere. The vehicle profile and the adapter you used are
+              held in memory for the current session only.
             </p>
             <p className="small muted">
               If you use a Wi-Fi adapter or a serial-to-WebSocket bridge, the app connects directly to the address you
