@@ -3,6 +3,7 @@ import { useApp, type CustomPid } from '../state/store';
 import { service } from '../lib/service';
 import { evalFormula, hex } from '../lib/format';
 import { download } from '../lib/storage';
+import { PRIVACY_PATH } from '../lib/routes';
 import { Icon } from '../components/Icon';
 import { Modal } from '../components/Modal';
 
@@ -173,6 +174,26 @@ export function Tools() {
                 <div className="tiny muted">Repairs and PINs are stored separately and untouched</div>
               </div>
               <button className="btn btn-sm btn-ghost" onClick={clearLogs}>Clear</button>
+            </div>
+            <div className="divider" />
+            <div className="row">
+              <div style={{ flex: 1 }}>
+                <div className="strong small">Privacy policy</div>
+                <div className="tiny muted">What the app stores, and what it never sends</div>
+              </div>
+              <a
+                className="btn btn-sm btn-ghost"
+                href={PRIVACY_PATH}
+                onClick={(e) => {
+                  // Client-side, so the installed app never requests a path the
+                  // WebView cannot resolve. pushState gives Back a history entry.
+                  e.preventDefault();
+                  window.history.pushState({}, '', PRIVACY_PATH);
+                  window.dispatchEvent(new PopStateEvent('popstate'));
+                }}
+              >
+                <Icon name="info" size={13} /> Open
+              </a>
             </div>
             <div className="divider" />
             <div className="row">
