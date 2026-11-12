@@ -72,6 +72,43 @@ Assets are in `store/play/` and already meet Play's specs:
 
 - [ ] **Internal testing** first — up to 100 testers, no review wait, confirms
       the bundle installs and the Bluetooth permission prompt behaves.
+
+### Internal-test upload (developer side)
+
+1. **Verify the tag artifact.** Unzip `torquemedic-v1.0.0` from the Actions run
+   and run `jarsigner -verify -verbose -certs app-release.aab`. It must say
+   `jar verified.` — not `jar is unsigned` or `CN=Android Debug`. Confirm
+   `versionCode 2` and `versionName 1.0.0` in the job summary.
+2. **Create the app record** if this is the first upload (section 2). The package
+   name `com.torquemedic.app` is permanent from that point.
+3. **Create the release.** Test and release → Testing → Internal testing →
+   Create new release. If the button is disabled, finish the Dashboard tasks
+   first. Accept Play App Signing with the default Google-generated key, upload
+   the `.aab`, name the release (for example `1.0.0 (2) internal`), add one line
+   of release notes, then Start rollout to Internal testing.
+4. **Wait for "Available to internal testers".** The first opt-in link can take
+   several hours to start working, even though the rollout itself is quick.
+5. **Add testers.** Testers tab → Create email list → add the exact Google
+   accounts (up to 100) → Save. Copy the opt-in link; it only appears once the
+   release is available. Testers cannot find an internal build by searching Play.
+6. **Send the install instructions.** Each tester must be signed in as the
+   address on the list:
+   > 1. Open this link on your Android phone: `<opt-in link>`
+   > 2. Accept the invitation and install TorqueMedic from Play.
+   > 3. Check Tools → About shows 1.0.0, then try Connect → Demo vehicle.
+   > 4. Email lailaikings24@gmail.com with your phone model and anything broken.
+7. **Before the closed test,** have internal testers opt out of the internal
+   track. A tester opted into internal testing generally cannot join the closed
+   test until they leave it — use separate accounts if that is simpler.
+
+Internal testing can start before the store listing and App content are complete;
+closed testing and production access cannot. The opt-in link only appears when
+the app status is Published/Available, not Draft or Pending publication.
+
+If upload fails, check the version code is unused, the AAB is signed with the
+registered upload key rather than a debug or local key, and the tester is using
+the exact account on the list.
+
 - [ ] **Closed testing** — personal accounts created after 13 November 2023
       must keep **at least 12 testers opted in continuously for 14 days** before
       they can even apply for production. Internal testing does not count, and
@@ -114,6 +151,8 @@ Assets are in `store/play/` and already meet Play's specs:
 
 - Target API levels: https://support.google.com/googleplay/android-developer/answer/11926878
 - Testing for new personal accounts: https://support.google.com/googleplay/android-developer/answer/14151465
+- Internal testing setup: https://support.google.com/googleplay/android-developer/answer/9845334
+- Preparing and rolling out a release: https://support.google.com/googleplay/android-developer/answer/9859348
 - Data safety: https://support.google.com/googleplay/android-developer/answer/10787469
 
 iOS is not covered here: it needs macOS, Xcode and an Apple Developer account,
