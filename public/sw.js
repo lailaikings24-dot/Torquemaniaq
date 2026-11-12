@@ -1,6 +1,6 @@
-  /install
+/*
  * TorqueMedic service worker — makes the app open with no network at all.
- * 
+ *
  * Strategy:
  *   install  → pre-cache the shell (icons, manifest) and the hashed bundle that
  *              the shell references, so the very first visit is enough.
@@ -17,7 +17,7 @@ const SHELL = [
   '/icons/icon-512.png',
   '/icons/maskable-512.png',
   '/icons/apple-touch-icon.png',
-]; 
+];
 
 /** Wait no longer than this for the network before showing the cached app. */
 const NAV_TIMEOUT = 3500;
