@@ -24,9 +24,13 @@ Build, signing, branding and listing art are already done in this repo.
 
 ## 2. App setup in Play Console
 
-- [ ] **Create the app.** Name `TorqueMedic`, default language, App (not game),
-      Free. The package name `com.torquemedic.app` becomes permanent once the
-      first bundle is uploaded.
+Copy-paste answers for every App content section — app access, ads, content
+rating, target audience, Data safety, permissions and listing fields — are in
+[CONSOLE-ANSWERS.md](CONSOLE-ANSWERS.md).
+
+- [ ] **Create the app.** Name `TorqueMedic: OBD2 Scanner` (25 characters),
+      default language, App (not game), Free. The package name
+      `com.torquemedic.app` becomes permanent once the first bundle is uploaded.
 - [ ] **App access.** All functionality is reachable without an account; the
       demo vehicle covers Bluetooth. State that no login is required.
 - [ ] **Ads.** No ads.
