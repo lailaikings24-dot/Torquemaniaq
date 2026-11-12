@@ -32,54 +32,41 @@ The JavaScript side already exists and needs no changes:
 The bridge is discovered at runtime via `window.Capacitor.Plugins.VehicleLink`,
 so the web build stays a plain web build and has no Capacitor dependency.
 
-## Create the projects
-
-```bash
-npm i -D @capacitor/cli
-npm i @capacitor/core @capacitor/android @capacitor/ios
-npx cap add android
-npx cap add ios          # macOS only
-      ``
-
-`capacitor.config.json` already points at `dist`, so build the web app first:
-
-   ```bah
-npm run build 
-npx cap sync
-```
-
 ## Android
 
-1. Copy `android/VehicleLinkPlugin.kt` to
-   `android/app/src/main/java/com/torquemedic/app/VehicleLinkPlugin.kt`
-   (create the directory; keep the `package` line matching).
-2. Register it in `MainActivity.kt`:
+The Capacitor project is committed under `android/` and the Bluetooth plugin is
+already wired, so there is nothing to copy by hand:
 
-   ```kotlin
-   package com.torquemedic.app
+- `android/app/src/main/java/com/torquemedic/app/VehicleLinkPlugin.kt` — the plugin
+- `MainActivity.java` — registers it with `registerPlugin(VehicleLinkPlugin.class)`
+- `AndroidManifest.xml` — BLE + Classic permissions, `neverForLocation`, and
+  `usesCleartextTraffic` so `ws://` Wi-Fi adapters reach the WebView
 
-   import android.os.Bundle
-   import com.getcapacitor.BridgeActivity
+```bash
+npm run android:sync     # web build + copy assets into the Android project
+npm run android:open     # open android/ in Android Studio
+```
 
-   class MainActivity : BridgeActivity() {
-       override fun onCreate(savedInstanceState: Bundle?) {
-           registerPlugin(VehicleLinkPlugin::class.java)
-           super.onCreate(savedInstanceState)
-       }
-   }
-      ``
+A Play Store bundle needs JDK 21 and Android SDK 35:
 
-3. Merge `AndroidManifest.additions.xml` into
-   `android/app/src/main/AndroidManifest.xml`.
-4. Run it, or build a signed APK/AAB for Play:
+```bash
+npm run android:bundle   # android/app/build/outputs/bundle/release/app-release.aab
+```
 
-   ```bash
-   npx cap run android          # device or emulator
-   cd android && ./gradlew assembleRelease
-   ```
+Signing is deliberately not configured. Create your own upload keystore, keep it
+out of git (`.jks` / `.keystore` are ignored), and reference it from a
+`signingConfigs` block in `android/app/build.gradle`. Losing that keystore means
+you cannot ship updates to the same Play listing.
 
-`minSdkVersion` 23 is enough (Capacitor's default). No background Bluetooth
-service is used, so no foreground-service permission is needed.
+### iOS project (macOS only)
+
+```bash
+npm i @capacitor/ios
+npx cap add ios
+npx cap sync ios
+```
+
+Then follow the iOS steps below.
 
 ## iOS
 

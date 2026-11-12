@@ -6,3 +6,8 @@ dev.pid
 *.local
 .DS_Store
 /freebuff-sites-build/
+
+# Android release signing — never commit upload keys
+*.jks
+*.keystore
+android/keystore.properties

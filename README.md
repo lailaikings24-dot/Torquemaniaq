@@ -55,6 +55,10 @@ installed app is the supported route: `native/ios` wraps this same web app in a
 Capacitor shell with a CoreBluetooth plugin. Wi-Fi adapters work in Safari
 through the WebSocket bridge without any native build.
 
+**Android app** — the Capacitor project lives in `android/` with the Bluetooth
+plugin already wired. `npm run android:bundle` builds the Play upload bundle,
+and `npm run android:open` opens the project in Android Studio.
+
 Both native projects are documented in [native/README.md](native/README.md).
 
 ## Adapters

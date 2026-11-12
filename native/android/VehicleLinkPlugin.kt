@@ -235,18 +235,22 @@ class VehicleLinkPlugin : Plugin() {
             }
 
             override fun onServicesDiscovered(g: BluetoothGatt, status: Int) {
-                val service = g.services.firstOrNull { knownServices.contains(it.uuid) }
-                    ?: g.services.firstOrNull { s -> s.characteristics.any { it.uuid.uuid != 0x2a00 } }
                 // Pick the characteristic that can both notify and write — that is
                 // the serial channel. Grabbing a read-only status characteristic is
                 // what makes a clone look "connected but mute".
-                val hasReadWrite =
-                    (it: BluetoothGattCharacteristic) -> (it.properties and
+                val hasReadWrite: (BluetoothGattCharacteristic) -> Boolean = { c ->
+                    (c.properties and
                         (BluetoothGattCharacteristic.PROPERTY_NOTIFY or BluetoothGattCharacteristic.PROPERTY_INDICATE)) != 0 &&
-                        (it.properties and
+                        (c.properties and
                             (BluetoothGattCharacteristic.PROPERTY_WRITE or BluetoothGattCharacteristic.PROPERTY_WRITE_NO_RESPONSE)) != 0
+                }
+                val genericAccess = UUID.fromString("00001800-0000-1000-8000-00805f9b34fb")
+                val service = g.services.firstOrNull { knownServices.contains(it.uuid) }
+                    ?: g.services.firstOrNull { s -> s.uuid != genericAccess && s.characteristics.any(hasReadWrite) }
                 val characteristic = service?.characteristics?.firstOrNull(hasReadWrite)
-                    ?: service?.characteristics?.firstOrNull { it.uuid.uuid != 0x2a00 }
+                    ?: service?.characteristics?.firstOrNull {
+                        (it.properties and BluetoothGattCharacteristic.PROPERTY_NOTIFY) != 0
+                    }
                 // A larger MTU means fewer 20-byte round trips per ELM command.
                 runCatching { g.requestMtu(185) }
                 if (characteristic == null) {
@@ -271,7 +275,8 @@ class VehicleLinkPlugin : Plugin() {
                     settled = true
                     val result = JSObject()
                     result.put("name", device.name ?: "Bluetooth adapter")
-                    result.put("profile", service.uuid.toString().substring(4, 8).uppercase())
+                    val profile = service?.uuid?.toString()?.takeIf { it.length >= 8 }?.substring(4, 8)?.uppercase()
+                    result.put("profile", profile ?: "GATT")
                     call.resolve(result)
                 }
             }
