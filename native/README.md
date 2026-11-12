@@ -101,6 +101,24 @@ jarsigner -verify android/app/build/outputs/bundle/release/app-release.aab
 Bump `versionCode` in `android/app/build.gradle` for every Play upload; Play
 rejects a bundle that reuses a code already on the track.
 
+### CI: signed bundles on tags
+
+`.github/workflows/android-release.yml` builds, verifies and uploads a signed AAB
+whenever a `v*` tag is pushed. Add four repository secrets first
+(Settings → Secrets and variables → Actions):
+
+| Secret | Value |
+| --- | --- |
+| `ANDROID_KEYSTORE_BASE64` | `base64 -w0 ~/keys/torquemedic-upload.jks` |
+| `ANDROID_KEYSTORE_PASSWORD` | store password |
+| `ANDROID_KEY_ALIAS` | key alias, usually `upload` |
+| `ANDROID_KEY_PASSWORD` | key password |
+
+The workflow reconstructs `android/keystore.properties` in the runner, fails the
+build if the AAB is not signed, uploads it as an artifact, and deletes the
+keystore and properties file even when a step fails. The AAB lands under
+Actions → the tag's run → Artifacts.
+
 ### iOS project (macOS only)
 
 ```bash
