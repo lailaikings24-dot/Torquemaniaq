@@ -75,6 +75,8 @@ Assets are in `store/play/` and already meet Play's specs:
       must keep **at least 12 testers opted in continuously for 14 days** before
       they can even apply for production. Internal testing does not count, and
       an opted-out tester restarts their clock. Organisation accounts are exempt.
+      Tester instructions (Play opt-in, debug APK, bug reports) are in
+      [TESTER-GUIDE.md](TESTER-GUIDE.md).
 - [ ] Apply for production access from the Dashboard and answer the closed-test
       questions (who tested, what you fixed, what changed).
 - [ ] Roll out to production, starting with a staged percentage.
