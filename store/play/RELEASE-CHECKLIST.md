@@ -33,11 +33,10 @@ Build, signing, branding and listing art are already done in this repo.
       user-generated content, no violence). Expect Everyone / PEGI 3.
 - [ ] **Target audience.** Not designed for children; do not opt into the
       Families programme.
-- [ ] **Data safety.** The app collects and shares nothing: readings stay in
-      local storage on the device, and CSV export is user-initiated. Declare the
-      Nearby devices (Bluetooth) permission as used for the adapter connection,
-      and note that location is not collected (fine location is capped at API 30
-      in the manifest only for legacy discovery).
+- [ ] **Data safety.** Answer **No** to collecting or sharing data. The exact
+      console answers and the code-backed reasons are in
+      [DATA-SAFETY.md](DATA-SAFETY.md); re-check it if any SDK or sync feature is
+      added.
 - [ ] **Permissions declaration.** Bluetooth scan/connect is core functionality;
       no `MANAGE_EXTERNAL_STORAGE`, SMS or call-log permissions are requested,
       so no sensitive-permission form applies.
