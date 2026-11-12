@@ -43,6 +43,7 @@ npm run build        # typecheck + production bundle
 npm run check:protocol   # protocol checks against the simulator
 npm run check:host       # routing/caching checks for the deploy worker
 npm run icons        # regenerate the PNG app icons
+npm run icons:android    # regenerate Android launcher icons + splash from icon.svg
 ```
 
 ## Getting it onto a phone

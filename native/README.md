@@ -45,6 +45,7 @@ already wired, so there is nothing to copy by hand:
 ```bash
 npm run android:sync     # web build + copy assets into the Android project
 npm run android:open     # open android/ in Android Studio
+npm run icons:android    # launcher icons + splash, rendered from public/icon.svg
 ```
 
 A Play Store bundle needs JDK 21 and Android SDK 35:
