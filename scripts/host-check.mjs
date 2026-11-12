@@ -116,19 +116,28 @@ await check('service worker is never cached', get('/sw.js', '*/*'), {
 });
 
 // The worker cannot import the app's route table, so guard the copy by hand.
-const appRoutes = [
-  ...readFileSync(new URL('../src/lib/routes.ts', import.meta.url), 'utf8').matchAll(/path:\s*'([^']+)'/g),
-].map((m) => m[1]);
+const routesSource = readFileSync(new URL('../src/lib/routes.ts', import.meta.url), 'utf8');
+const appRoutes = [...routesSource.matchAll(/path:\s*'([^']+)'/g)].map((m) => m[1]);
 
-const missing = appRoutes.filter((p) => !APP_ROUTES.includes(p));
-const extra = APP_ROUTES.filter((p) => !appRoutes.includes(p));
+// Standalone pages (the privacy policy) are shell routes too, but they carry no
+// screen, so they live in their own list. Read it the same way as the screens.
+const standaloneBlock = routesSource.match(/STANDALONE_PATHS[^=]*=\s*\[([\s\S]*?)\]/);
+const standaloneRoutes = [
+  // The constant the list is built from, then any literals written inline.
+  ...[...routesSource.matchAll(/PRIVACY_PATH\s*=\s*'([^']+)'/g)].map((m) => m[1]),
+  ...(standaloneBlock ? [...standaloneBlock[1].matchAll(/'([^']+)'/g)].map((m) => m[1]) : []),
+];
+
+const allAppRoutes = [...new Set([...appRoutes, ...standaloneRoutes])];
+const missing = allAppRoutes.filter((p) => !APP_ROUTES.includes(p));
+const extra = APP_ROUTES.filter((p) => !allAppRoutes.includes(p));
 if (missing.length || extra.length) {
   failures += 1;
   console.log(
     `  FAIL  route map matches the app — missing [${missing.join(', ')}] extra [${extra.join(', ')}]`,
   );
 } else {
-  console.log(`  PASS  route map matches the app (${appRoutes.length} routes)`);
+  console.log(`  PASS  route map matches the app (${allAppRoutes.length} routes)`);
 }
 
 console.log(failures === 0 ? '\nALL HOST CHECKS PASSED' : `\n${failures} HOST CHECK(S) FAILED`);

@@ -24,7 +24,7 @@
  * uploaded without the app bundle, so the list cannot be imported.
  * `npm run check:host` fails if the two lists drift apart.
  */
-export const APP_ROUTES = ['/', '/live', '/codes', '/repair', '/vehicle', '/tools', '/connect'];
+export const APP_ROUTES = ['/', '/live', '/codes', '/repair', '/vehicle', '/tools', '/connect', '/privacy'];
 
 const NO_STORE = ['/', '/index.html', '/sw.js', '/manifest.webmanifest'];
 

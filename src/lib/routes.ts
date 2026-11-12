@@ -27,8 +27,16 @@ export const ROUTES: Route[] = [
   { screen: 'connect', path: '/connect', title: 'Connection' },
 ];
 
+/**
+ * Pages that are not app screens but still need their own URL and the app
+ * shell: the deploy worker serves the same index.html and the entry point
+ * renders a standalone component instead of the dashboard shell.
+ */
+export const PRIVACY_PATH = '/privacy';
+export const STANDALONE_PATHS: string[] = [PRIVACY_PATH];
+
 /** Every path the server must answer with the app shell. */
-export const APP_PATHS: string[] = ROUTES.map((r) => r.path);
+export const APP_PATHS: string[] = [...ROUTES.map((r) => r.path), ...STANDALONE_PATHS];
 
 /** A trailing slash is not part of a route: "/codes/" redirects to "/codes". */
 export function canonicalPath(pathname: string): string {

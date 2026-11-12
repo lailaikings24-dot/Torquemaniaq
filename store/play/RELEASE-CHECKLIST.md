@@ -11,9 +11,11 @@ Build, signing, branding and listing art are already done in this repo.
       official minimum for API 36; Gradle 8.11.1 in the wrapper satisfies it).
       Re-check every August — the minimum rises yearly.
       Source: https://developer.android.com/build/releases/about-agp
-- [ ] **Privacy policy URL.** Required for every Play app. None exists in this
-      repo yet — publish one (the deployed site is a natural host) and keep it
-      reachable without sign-in.
+- [x] **Privacy policy URL — published.**
+      https://site-d29bccb8b69e4f628bad28288fc50584.freebuff.page/privacy
+      Source: `src/pages/Privacy.tsx` (route `/privacy`, served by the deploy
+      worker). The page lists `privacy@torquemaniaq.com` as the contact, so that
+      mailbox must exist or the address must be changed before submitting.
 - [ ] **Play Console account.** Personal or organisation, one-time registration
       fee, identity verification. Organisation accounts need a D-U-N-S number.
 - [ ] **Upload keystore.** Create it, back it up, and add the four
