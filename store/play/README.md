@@ -9,7 +9,8 @@ answered in [DATA-SAFETY.md](DATA-SAFETY.md), the content rating in
 [PRODUCTION-ACCESS.md](PRODUCTION-ACCESS.md), a copy-paste sheet for every App
 content question in [CONSOLE-ANSWERS.md](CONSOLE-ANSWERS.md), a first-session
 order of operations in [FIRST-SESSION.md](FIRST-SESSION.md), and a dated
-closed-test plan in [TEST-SCHEDULE.md](TEST-SCHEDULE.md).
+closed-test plan with a [CSV tracker](closed-test-tracker.csv) in
+[TEST-SCHEDULE.md](TEST-SCHEDULE.md).
 
 Upload-ready art for the Google Play listing, generated from the app's own brand
 (`public/icon.svg`) and the running app — no stock imagery.

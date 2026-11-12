@@ -70,14 +70,13 @@ shows the requirement is already met on D+14, apply then.
 
 ## Tracker
 
-Copy this into a sheet and fill it on the day, not from memory:
+Use [closed-test-tracker.csv](closed-test-tracker.csv) — open it in Sheets or
+Excel and add one row per tester. Fill it on the day, not from memory.
 
-| Tester | Google account | Invited | Opted in | Installed | Version | Open days | Feedback | Status |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-|  |  |  |  |  |  |  |  |  |
-
-`Earliest possible apply date` = the opt-in date of the 12th-oldest tester who is
-still opted in, plus 14 days.
+Use ISO dates (`YYYY-MM-DD`). Status values: `Invited`, `Opted in`, `Active`,
+`Dropped`, `Replaced`. `eligible_from` is that tester's `opt_in_date` plus 14
+days; the application date is the latest `eligible_from` among the 12 oldest
+still-active testers.
 
 ## Phase 3 — apply and after
 
