@@ -2,8 +2,9 @@
 
 For the console-side steps, testing requirements and version bumps, see
 [RELEASE-CHECKLIST.md](RELEASE-CHECKLIST.md). The Data safety questionnaire is
-answered in [DATA-SAFETY.md](DATA-SAFETY.md), and the content rating in
-[CONTENT-RATING.md](CONTENT-RATING.md).
+answered in [DATA-SAFETY.md](DATA-SAFETY.md), the content rating in
+[CONTENT-RATING.md](CONTENT-RATING.md), and the listing text in
+[STORE-LISTING.md](STORE-LISTING.md).
 
 Upload-ready art for the Google Play listing, generated from the app's own brand
 (`public/icon.svg`) and the running app — no stock imagery.

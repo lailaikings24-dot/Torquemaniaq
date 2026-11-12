@@ -51,11 +51,8 @@ Assets are in `store/play/` and already meet Play's specs:
 - [ ] Feature graphic — `store/play/feature-graphic-1024x500.png`
 - [ ] Phone screenshots — `store/play/screenshots/01`–`05` (1080×1920, five of
       the eight allowed)
-- [ ] Short description (≤80 chars), e.g.
-      `Read OBD-II codes, watch live sensor data, and follow guided repairs.`
-- [ ] Full description (≤4000 chars): cover codes, live data, guided repair
-      costs/steps, demo vehicle, Bluetooth Classic/BLE and Wi-Fi adapters.
-- [ ] Category: Auto & Vehicles (or Tools), tags, contact email, website URL.
+- [ ] Short and full description, release notes, category and contact details —
+      ready to paste from [STORE-LISTING.md](STORE-LISTING.md).
 - [ ] Countries/regions and pricing (free).
 
 ## 4. Cut a release
