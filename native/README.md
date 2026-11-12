@@ -125,6 +125,10 @@ to `jar is unsigned`, and the artifact is named `torquemedic-dry-run-<run>`. Use
 it to confirm the SDK, Node and Gradle toolchain before configuring secrets or
 pushing a tag.
 
+Every run also writes a **job summary** listing the version code and name, the
+packaged web asset with its SHA-256, and the AAB hash, so a build can be checked
+against the local one without downloading the artifact.
+
 ### iOS project (macOS only)
 
 ```bash

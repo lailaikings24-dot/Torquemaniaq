@@ -90,6 +90,28 @@ jobs:
         working-directory: android
         run: ./gradlew bundleRelease --no-daemon --console=plain
 
+      - name: Record build facts in the job summary
+        working-directory: android
+        run: |
+          set -euo pipefail
+          AAB=app/build/outputs/bundle/release/app-release.aab
+          ASSET=$(unzip -Z1 "$AAB" | grep -E '^base/assets/public/assets/index-.*\.js$' | head -1)
+          ASSET_HASH=$(unzip -p "$AAB" "$ASSET" | sha256sum | cut -d' ' -f1)
+          AAB_HASH=$(sha256sum "$AAB" | cut -d' ' -f1)
+          VERSION_CODE=$(grep -oE 'versionCode [0-9]+' app/build.gradle | awk '{print $2}')
+          VERSION_NAME=$(grep -oE 'versionName "[^"]+"' app/build.gradle | cut -d'"' -f2)
+          {
+            echo '## Android bundle'
+            echo ''
+            echo '| Field | Value |'
+            echo '| --- | --- |'
+            echo "| Web asset | \`$(basename "$ASSET")\` |"
+            echo "| Web asset SHA-256 | \`$ASSET_HASH\` |"
+            echo "| versionCode | \`$VERSION_CODE\` |"
+            echo "| versionName | \`$VERSION_NAME\` |"
+            echo "| AAB SHA-256 | \`$AAB_HASH\` |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Verify the bundle is signed
         if: github.event_name == 'push'
         working-directory: android
