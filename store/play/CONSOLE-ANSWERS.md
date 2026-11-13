@@ -131,6 +131,9 @@ Why "No" is correct:
 - CSV and report exports happen only on an explicit tap, to a destination the
   user chooses.
 - There is no account, backend, sync, ads, analytics or crash reporting.
+- The capped `ACCESS_FINE_LOCATION` permission exists only for Bluetooth
+  discovery on Android 11 and older; the app never reads a position, so it is
+  not location collection.
 
 ## 6. Privacy policy
 

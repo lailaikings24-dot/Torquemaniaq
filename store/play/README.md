@@ -19,7 +19,7 @@ Upload-ready art for the Google Play listing, generated from the app's own brand
 | --- | --- | --- |
 | `icon-512.png` | App icon, 32-bit PNG, no transparency | 512 × 512 |
 | `feature-graphic-1024x500.png` | Feature graphic, PNG/JPEG, no transparency, no rounded corners | 1024 × 500 |
-| `screenshots/01-dashboard.png` | Phone screenshot, 16:9, min 320 px | 1080 × 1920 |
+| `screenshots/01-dashboard.png` | Phone screenshot, 9:16 portrait, min 320 px | 1080 × 1920 |
 | `screenshots/02-codes.png` | Phone screenshot | 1080 × 1920 |
 | `screenshots/03-vehicle.png` | Phone screenshot | 1080 × 1920 |
 | `screenshots/04-live-data.png` | Phone screenshot | 1080 × 1920 |

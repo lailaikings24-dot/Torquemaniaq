@@ -70,8 +70,9 @@ Thanks again for sitting through this.
 5. Leave the test only when the developer says it is finished. Opting out before
    the 14 days are up means your install no longer counts.
 
-The app can take a few minutes to appear after you opt in. If Play says the app
-is not available, tell the developer rather than removing yourself from the test.
+The app can take a few minutes to appear after you opt in, and the first opt-in
+link can take several hours to activate. If Play says the app is not available,
+tell the developer rather than removing yourself from the test.
 
 ## Install option B — debug APK from GitHub Actions
 
@@ -160,7 +161,9 @@ you were trying to do rather than only what you would change.
 
 ## What this test does not cover
 
-- iOS: the iPhone app is not built yet; only the browser version works there.
+- iOS: the iPhone app is not built yet. The browser version opens on iPhone,
+  but Safari has no Web Bluetooth, so real Bluetooth adapters need the Android
+  app.
 - ABS, airbag, body and other manufacturer modules: generic OBD-II does not expose
   them. Use custom PIDs if you know the identifiers.
 - Accounts, sync or cloud features: there are none. Diagnostics stay on the phone.

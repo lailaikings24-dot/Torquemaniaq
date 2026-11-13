@@ -1,7 +1,8 @@
 # Google Play release checklist
 
 Everything below is on the account/console side or a deliberate version bump.
-Build, signing, branding and listing art are already done in this repo.
+Build, branding and listing art are already done in this repo. The upload key
+and signing are not: sections 1 and 4 create them.
 
 ## 1. Blockers to clear first
 

@@ -1,6 +1,6 @@
 # Play Console — IARC content rating answers
 
-Prepared 12 November 2026 against commit `186f985`. The questionnaire is served
+Reviewed 12 November 2026 against the current app. The questionnaire is served
 by IARC inside Play Console; its wording changes from time to time, so treat the
 answers below as the position to defend, not as a transcript.
 

@@ -8,6 +8,10 @@ The rule being scheduled: **at least 12 testers opted in continuously for the
 preceding 14 days** when you apply. Each tester's clock starts at their own
 opt-in, so the tracker matters more than the calendar.
 
+These dates assume the Play account is approved, the App content declarations
+are ready, and a signed AAB exists by 16 November. If any of those is missing,
+set D0 to the first Monday after all three are true and shift every row.
+
 ## At a glance
 
 | Offset | Example date | What happens |
